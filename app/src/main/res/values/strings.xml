@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PMDM03_MAB_v03</string>
+    <string name="prompt_email">Correo electrónico</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Iniciar sesión o crear cuenta</string>
+    <string name="google_sign_in">Botón de Google Sign-In</string>
+</resources>
