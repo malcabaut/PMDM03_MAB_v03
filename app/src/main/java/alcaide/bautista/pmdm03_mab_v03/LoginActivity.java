@@ -21,85 +21,74 @@ import alcaide.bautista.pmdm03_mab_v03.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "LoginActivity"; // Etiqueta de log para esta actividad
     private static final int RC_SIGN_IN = 1; // Código de solicitud para el inicio de sesión
 
-    private ActivityLoginBinding binding; // Instancia de ViewBinding
-    private FirebaseAuth firebaseAuth;
+    private ActivityLoginBinding binding; // Instancia de ViewBinding para acceder a las vistas
+    private FirebaseAuth firebaseAuth; // Instancia de FirebaseAuth para manejar la autenticación
 
-    // Lista de proveedores de autenticación para FirebaseUI
+    // Lista de proveedores de autenticación que soporta FirebaseUI (Email y Google)
     private final List<AuthUI.IdpConfig> providers = Arrays.asList(
-            new AuthUI.IdpConfig.EmailBuilder().build(),
-            new AuthUI.IdpConfig.GoogleBuilder().build()
+            new AuthUI.IdpConfig.EmailBuilder().build(),  // Autenticación por correo electrónico
+            new AuthUI.IdpConfig.GoogleBuilder().build()  // Autenticación por Google
     );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Configurar ViewBinding
+        // Configurar ViewBinding para acceder a las vistas de la actividad
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Inicializar FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance();
 
-        // Validar entrada del usuario
-        binding.login.setEnabled(false); // Deshabilitar botón de login al principio
+        // Deshabilitar el botón de login inicialmente
+        binding.login.setEnabled(false);
 
-        // Manejar clic en el botón de inicio de sesión manual
+        // Configurar el botón de inicio de sesión manual
         binding.login.setOnClickListener(v -> manualLogin());
 
-        // Manejar clic en el botón de Google Sign-In
+        // Configurar el botón de inicio de sesión con Google
         binding.googleSignInButton.setOnClickListener(v -> {
             Log.d(TAG, "Botón de Google Sign-In clicado");
             launchFirebaseUI();
         });
 
-        // Validación de los campos de entrada
+        // Validación de los campos de entrada (usuario y contraseña)
         binding.username.addTextChangedListener(new android.text.TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                // Método vacío, no es necesario para este caso
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                // Método vacío, no es necesario para este caso
-            }
-
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {}
             @Override
             public void afterTextChanged(android.text.Editable editable) {
-                validateInput(); // Validar entrada después de cada cambio
+                validateInput(); // Validar la entrada después de cada cambio
             }
         });
 
         binding.password.addTextChangedListener(new android.text.TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                // Método vacío, no es necesario para este caso
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                // Método vacío, no es necesario para este caso
-            }
-
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {}
             @Override
             public void afterTextChanged(android.text.Editable editable) {
-                validateInput(); // Validar entrada después de cada cambio
+                validateInput(); // Validar la entrada después de cada cambio
             }
         });
     }
 
-    // Validar la entrada del usuario y habilitar/deshabilitar el botón de login
+    // Método para validar la entrada del usuario y habilitar/deshabilitar el botón de login
     private void validateInput() {
         String username = binding.username.getText().toString().trim();
         String password = binding.password.getText().toString().trim();
+        // Habilitar el botón de login solo si ambos campos no están vacíos
         binding.login.setEnabled(!username.isEmpty() && !password.isEmpty());
     }
 
-    // Realizar inicio de sesión manual
+    // Método para realizar el inicio de sesión manual con correo y contraseña
     private void manualLogin() {
         String email = binding.username.getText().toString().trim();
         String password = binding.password.getText().toString().trim();
@@ -107,15 +96,16 @@ public class LoginActivity extends AppCompatActivity {
         binding.loading.setVisibility(View.VISIBLE); // Mostrar indicador de carga
         Log.d(TAG, "Intentando iniciar sesión con el email: " + email);
 
+        // Intentar iniciar sesión con correo y contraseña
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     binding.loading.setVisibility(View.GONE); // Ocultar indicador de carga
                     if (task.isSuccessful()) {
-                        // Inicio de sesión exitoso
+                        // Si el inicio de sesión es exitoso, redirigir a la actividad principal
                         Log.d(TAG, "Inicio de sesión exitoso para: " + email);
                         redirectToMain();
                     } else {
-                        // Si el inicio de sesión falla, intentar crear la cuenta
+                        // Si el inicio de sesión falla, intentar crear una nueva cuenta
                         Log.e(TAG, "Error de inicio de sesión: " + task.getException().getMessage());
                         Toast.makeText(this, "Error de inicio de sesión. Intentando crear cuenta.", Toast.LENGTH_SHORT).show();
                         createAccount(email, password);
@@ -123,35 +113,36 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    // Crear una nueva cuenta de usuario
+    // Método para crear una nueva cuenta de usuario
     private void createAccount(String email, String password) {
         Log.d(TAG, "Creando cuenta para: " + email);
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Cuenta creada exitosamente
+                        // Si la cuenta se crea exitosamente, redirigir a la actividad principal
                         Log.d(TAG, "Cuenta creada exitosamente para: " + email);
                         redirectToMain();
                     } else {
-                        // Error al crear la cuenta
+                        // Si ocurre un error al crear la cuenta
                         Log.e(TAG, "Error al crear cuenta: " + task.getException().getMessage());
                         Toast.makeText(this, "Error al crear cuenta.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    // Lanzar el flujo de autenticación de FirebaseUI (Google Sign-In)
+    // Método para lanzar el flujo de autenticación de FirebaseUI para Google Sign-In
     private void launchFirebaseUI() {
         Log.d(TAG, "launchFirebaseUI: Iniciando FirebaseUI para Google Sign-In");
 
         try {
+            // Crear un Intent para iniciar el flujo de autenticación de FirebaseUI
             Intent intent = AuthUI.getInstance()
                     .createSignInIntentBuilder()
-                    .setAvailableProviders(providers)
-                    .setLogo(R.drawable.ic_launcher_foreground) // Opcional: Añadir tu logo
+                    .setAvailableProviders(providers) // Proveedores de autenticación (Email y Google)
+                    .setLogo(R.drawable.ic_launcher_foreground) // Opcional: Añadir logo
                     .build();
-            startActivityForResult(intent, RC_SIGN_IN);
+            startActivityForResult(intent, RC_SIGN_IN); // Iniciar el flujo de autenticación
         } catch (Exception e) {
             Log.e(TAG, "launchFirebaseUI: Error al iniciar FirebaseUI", e);
         }
@@ -159,9 +150,9 @@ public class LoginActivity extends AppCompatActivity {
 
     // Método para redirigir a la pantalla principal después de un inicio de sesión exitoso
     private void redirectToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class); // Crear un intent hacia MainActivity
         startActivity(intent);
-        finish();
+        finish(); // Finalizar la actividad actual (LoginActivity)
     }
 
     // Manejar el resultado del inicio de sesión de FirebaseUI
@@ -172,12 +163,12 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                // Inicio de sesión exitoso
+                // Si el inicio de sesión es exitoso con Google, redirigir a la pantalla principal
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 Log.d(TAG, "Inicio de sesión exitoso con Google para: " + user.getEmail());
                 redirectToMain();
             } else {
-                // Inicio de sesión fallido
+                // Si el inicio de sesión falla, mostrar el error correspondiente
                 if (response == null) {
                     Log.w(TAG, "onActivityResult: El usuario canceló el inicio de sesión");
                     Toast.makeText(this, "Inicio de sesión cancelado", Toast.LENGTH_SHORT).show();

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "alcaide.bautista.pmdm03_mab_v03"
-        minSdk = 28
+        minSdk = 29
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -26,6 +26,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -38,23 +39,24 @@ android {
 }
 
 dependencies {
-
+    // Core Android libraries
+    implementation(libs.core.splashscreen)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+    implementation(libs.recyclerview)
+    implementation(libs.cardview)
     implementation(libs.annotation)
 
-    // Firebase dependencies with BOM
-    implementation(platform(libs.firebase.bom)) // Firebase BOM to manage versions automatically
+    // Navigation components
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+
+    // Firebase dependencies
+    implementation(platform(libs.firebase.bom)) // Firebase BOM for version management
     implementation(libs.firebase.auth) // Firebase Authentication
     implementation(libs.firebase.analytics)
-
-    // Firebase UI Authentication
-    implementation(libs.firebase.ui.auth)
+    implementation(libs.firebase.ui.auth) // Firebase UI Authentication
 
     // Testing dependencies
     testImplementation(libs.junit)

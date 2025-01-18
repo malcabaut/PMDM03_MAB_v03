@@ -1,7 +1,35 @@
 <resources>
+    <!-- Nombre de la aplicación -->
     <string name="app_name">PMDM03_MAB_v03</string>
+
+    <!-- Cadenas para iniciar sesión -->
     <string name="prompt_email">Correo electrónico</string>
     <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Iniciar sesión o crear cuenta</string>
     <string name="google_sign_in">Botón de Google Sign-In</string>
+
+    <!-- Cadenas para el menú de navegación -->
+    <string name="nav_captured_pokemon">Pokémon Capturados</string>
+    <string name="nav_pokedex">Pokédex</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="navigation_drawer_open">Abrir menú de navegación</string>
+    <string name="navigation_drawer_close">Cerrar menú de navegación</string>
+
+    <!-- Cadenas para los fragmentos -->
+    <string name="fragment_captured_pokemon_title">Pokémon Capturados</string>
+    <string name="fragment_pokedex_title">Pokédex</string>
+    <string name="fragment_settings_title">Ajustes</string>
+
+    <!-- Mensajes y notificaciones -->
+    <string name="msg_loading">Cargando...</string>
+    <string name="msg_error_generic">Se produjo un error. Por favor, inténtalo de nuevo.</string>
+    <string name="msg_no_data">No hay datos disponibles en este momento.</string>
+
+    <!-- Acciones -->
+    <string name="action_retry">Reintentar</string>
+    <string name="action_close">Cerrar</string>
+    <string name="action_save">Guardar</string>
+    <string name="pok_mon_capturados">Pokémon Capturados</string>
+    <string name="pok_dex">Pokédex</string>
+    <string name="setting">Ajustes</string>
 </resources>
