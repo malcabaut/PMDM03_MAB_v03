@@ -1,65 +1,71 @@
+// Aplicación de plugins necesarios para el proyecto
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.android.application) // Plugin para aplicaciones Android
+    alias(libs.plugins.google.gms.google.services) // Plugin de Google Services para integrar servicios de Firebase
 }
 
 android {
+    // Namespace del proyecto (identificador único)
     namespace = "alcaide.bautista.pmdm03_mab_v03"
-    compileSdk = 35
+    compileSdk = 35 // Versión del SDK utilizada para compilar la aplicación
 
     defaultConfig {
-        applicationId = "alcaide.bautista.pmdm03_mab_v03"
-        minSdk = 29
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = "alcaide.bautista.pmdm03_mab_v03" // Identificador único de la aplicación en el sistema Android
+        minSdk = 29 // Mínima versión del sistema operativo que soportará la app
+        targetSdk = 35 // Versión del sistema objetivo al que se optimiza la app
+        versionCode = 1 // Código interno de versión de la app
+        versionName = "1.0" // Versión visible al usuario
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" // Runner para pruebas instrumentadas
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = false // Minificación desactivada para la versión release
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), // Archivo ProGuard predeterminado
+                "proguard-rules.pro" // Reglas adicionales para optimización y ofuscación
             )
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_11 // Versión de Java para el código fuente
+        targetCompatibility = JavaVersion.VERSION_11 // Versión de Java para el código de destino
     }
 
     buildFeatures {
-        viewBinding = true
-        dataBinding = true
+        viewBinding = true // Activación de ViewBinding para simplificar la interacción con las vistas
+        dataBinding = true // Activación de DataBinding para enlazar datos con las vistas directamente
     }
 }
 
 dependencies {
-    // Core Android libraries
-    implementation(libs.core.splashscreen)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.constraintlayout)
-    implementation(libs.recyclerview)
-    implementation(libs.cardview)
-    implementation(libs.annotation)
+    // Librerías esenciales de Android
+    implementation(libs.core.splashscreen) // Compatibilidad con la pantalla de inicio
+    implementation(libs.appcompat) // Compatibilidad con versiones antiguas de Android
+    implementation(libs.material) // Componentes de Material Design
+    implementation(libs.constraintlayout) // Layout basado en restricciones
+    implementation(libs.recyclerview) // Componente para listas dinámicas
+    implementation(libs.cardview) // Vista para tarjetas
+    implementation(libs.annotation) // Anotaciones de Android
 
-    // Navigation components
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+    // Componentes de navegación
+    implementation(libs.navigation.fragment) // Navegación entre fragmentos
+    implementation(libs.navigation.ui) // Componentes de UI relacionados con la navegación
 
-    // Firebase dependencies
-    implementation(platform(libs.firebase.bom)) // Firebase BOM for version management
-    implementation(libs.firebase.auth) // Firebase Authentication
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.ui.auth) // Firebase UI Authentication
+    // Dependencias de Firebase
+    implementation(platform(libs.firebase.bom)) // Firebase BOM para gestionar versiones
+    implementation(libs.firebase.auth) // Autenticación de Firebase
+    implementation(libs.firebase.analytics) // Analíticas de Firebase
+    implementation(libs.firebase.ui.auth) // Interfaz de usuario para autenticación con Firebase
 
-    // Testing dependencies
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    // Retrofit (para llamadas a APIs)
+    implementation(libs.retrofit) // Cliente HTTP Retrofit
+    implementation(libs.converter.gson) // Convertidor Gson para serialización/deserialización de JSON
+
+    // Dependencias de pruebas
+    testImplementation(libs.junit) // Pruebas unitarias con JUnit
+    androidTestImplementation(libs.ext.junit) // Pruebas instrumentadas con JUnit
+    androidTestImplementation(libs.espresso.core) // Librería Espresso para pruebas de UI
 }

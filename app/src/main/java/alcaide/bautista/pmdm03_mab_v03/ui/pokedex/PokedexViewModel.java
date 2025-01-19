@@ -1,34 +1,42 @@
 package alcaide.bautista.pmdm03_mab_v03.ui.pokedex;
 
-// Importación de clases necesarias para la implementación del ViewModel.
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-/**
- * ViewModel para gestionar los datos relacionados con el fragmento de la Pokédex.
- * Proporciona datos reactivos que pueden ser observados por la interfaz de usuario.
- */
+import alcaide.bautista.pmdm03_mab_v03.data.PokemonApiService;
+import alcaide.bautista.pmdm03_mab_v03.data.RetrofitClient;
+import alcaide.bautista.pmdm03_mab_v03.data.PokemonResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PokedexViewModel extends ViewModel {
+    private final MutableLiveData<PokemonResponse> pokemonList = new MutableLiveData<>();
+    private final PokemonApiService apiService;
 
-    // MutableLiveData que almacena un texto observable para el fragmento de la Pokédex.
-    private final MutableLiveData<String> mText;
-
-    /**
-     * Constructor de la clase. Inicializa el MutableLiveData con un mensaje predeterminado.
-     */
     public PokedexViewModel() {
-        // Se crea una instancia de MutableLiveData y se establece un valor inicial.
-        mText = new MutableLiveData<>();
-        mText.setValue("Pokedex Fragment Loaded");
+        apiService = RetrofitClient.getInstance().create(PokemonApiService.class);
     }
 
-    /**
-     * Devuelve un LiveData que permite observar cambios en el texto.
-     *
-     * @return Un LiveData que contiene el texto observable.
-     */
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<PokemonResponse> getPokemonList() {
+        return pokemonList;
+    }
+
+    public void fetchPokemonList(int offset, int limit) {
+        apiService.getPokemonList(offset, limit).enqueue(new Callback<PokemonResponse>() {
+            @Override
+            public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    pokemonList.postValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PokemonResponse> call, Throwable t) {
+                // Manejo de errores
+            }
+        });
     }
 }
