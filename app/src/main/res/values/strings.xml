@@ -32,4 +32,7 @@
     <string name="pok_mon_capturados">Pokémon Capturados</string>
     <string name="pok_dex">Pokédex</string>
     <string name="setting">Ajustes</string>
+    <string name="pokemon_image_desc">Blabla\n</string>
+    <string name="no_captured_pokemon">No has capturado ningun pokemon</string>
+    <string name="loading_captured_pokemon">Cargando...</string>
 </resources>

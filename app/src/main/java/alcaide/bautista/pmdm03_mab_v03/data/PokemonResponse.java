@@ -9,10 +9,6 @@ public class PokemonResponse {
         return results;
     }
 
-    public void setResults(List<Result> results) {
-        this.results = results;
-    }
-
     public static class Result {
         private String name;
         private String url;
@@ -29,8 +25,17 @@ public class PokemonResponse {
             return url;
         }
 
-        public void setUrl(String url) {
-            this.url = url;
+        // Método para obtener el ID del Pokémon a partir de la URL
+        public int getId() {
+            String[] urlParts = url.split("/");
+            return Integer.parseInt(urlParts[urlParts.length - 1]);
+        }
+
+        // Método para obtener la URL de la imagen del Pokémon
+        public String getImageUrl() {
+            int id = getId();
+            return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
         }
     }
+
 }

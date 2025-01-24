@@ -63,6 +63,9 @@ dependencies {
     // Retrofit (para llamadas a APIs)
     implementation(libs.retrofit) // Cliente HTTP Retrofit
     implementation(libs.converter.gson) // Convertidor Gson para serialización/deserialización de JSON
+    implementation (libs.squareup.picasso)
+    implementation(libs.firebase.firestore)
+
 
     // Dependencias de pruebas
     testImplementation(libs.junit) // Pruebas unitarias con JUnit

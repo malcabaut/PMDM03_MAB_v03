@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,8 @@ public class PokedexFragment extends Fragment {
     private RecyclerView recyclerView;
     private PokedexAdapter adapter;
 
+    private String userId; // Almacenar el userId
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,6 +32,9 @@ public class PokedexFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Obtener el userId de la actividad que contiene el fragmento
+        userId = getActivity().getIntent().getStringExtra("user_id");
+
         recyclerView = view.findViewById(R.id.recycler_view_pokedex);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -36,7 +42,8 @@ public class PokedexFragment extends Fragment {
 
         pokedexViewModel.getPokemonList().observe(getViewLifecycleOwner(), pokemonResponse -> {
             if (pokemonResponse != null) {
-                adapter = new PokedexAdapter(pokemonResponse.getResults());
+                // Asegurarse de pasar el userId al adaptador
+                adapter = new PokedexAdapter(pokemonResponse.getResults(), userId);
                 recyclerView.setAdapter(adapter);
             }
         });

@@ -1,48 +1,103 @@
 package alcaide.bautista.pmdm03_mab_v03.ui.captured_pokemon;
 
-// Importación de clases necesarias para la funcionalidad del fragmento.
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import alcaide.bautista.pmdm03_mab_v03.R;
+import alcaide.bautista.pmdm03_mab_v03.data.Pokemon;
 
-/**
- * Fragmento que representa la interfaz de usuario para los Pokémon capturados.
- * Utiliza un ViewModel para manejar la lógica de datos y las actualizaciones del UI.
- */
 public class CapturedPokemonFragment extends Fragment {
 
-    // ViewModel asociado a este fragmento para manejar los datos relacionados con Pokémon capturados.
     private CapturedPokemonViewModel viewModel;
+    private CapturedPokemonAdapter adapter;
 
-    /**
-     * Método que se llama para inicializar la vista del fragmento.
-     *
-     * @param inflater  Objeto que infla el diseño del fragmento.
-     * @param container Contenedor padre en el que se insertará la vista.
-     * @param savedInstanceState Estado previamente guardado del fragmento, si existe.
-     * @return La vista inflada del fragmento.
-     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Se inicializa el ViewModel para el ciclo de vida de este fragmento.
-        viewModel = new ViewModelProvider(this).get(CapturedPokemonViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflar el diseño del fragmento
+        return inflater.inflate(R.layout.fragment_captured_pokemon, container, false);
+    }
 
-        // Se infla el diseño del fragmento desde el archivo XML correspondiente.
-        View view = inflater.inflate(R.layout.fragment_captured_pokemon, container, false);
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        // Observador del ViewModel: escucha cambios en los datos y actualiza la interfaz de usuario.
-        viewModel.getText().observe(getViewLifecycleOwner(), text -> {
-            // Aquí se manejarán las actualizaciones de la UI cuando los datos cambien.
-            // Por ejemplo, podrías actualizar un TextView con el texto observado.
+        // Inicializar el ViewModel
+        viewModel = new ViewModelProvider(requireActivity()).get(CapturedPokemonViewModel.class);
+
+        // Configurar RecyclerView
+        setupRecyclerView(view);
+
+        // Observar los cambios en los datos
+        observeViewModel();
+
+        // Cargar datos iniciales si es necesario
+        if (isPokemonListEmpty()) {
+            viewModel.fetchCapturedPokemon();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Actualizar la lista al recuperar el fragmento
+        viewModel.fetchCapturedPokemon();
+    }
+
+    private void setupRecyclerView(@NonNull View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_captured_pokemon);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Inicializar el adaptador con una lista vacía
+        adapter = new CapturedPokemonAdapter(new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+
+        // Configurar el listener para los clics en los elementos
+        adapter.setOnItemClickListener(pokemon -> {
+            // Navegar al detalle del Pokémon
+            Bundle bundle = new Bundle();
+            bundle.putInt("pokemonId", pokemon.getId()); // Asegúrate de que Pokémon tiene un ID válido
+            Navigation.findNavController(view).navigate(R.id.nav_settings, bundle);
+        });
+    }
+
+    private void observeViewModel() {
+        // Observar cambios en la lista de Pokémon capturados
+        viewModel.getCapturedPokemonList().observe(getViewLifecycleOwner(), this::updatePokemonList);
+
+        // Observar el estado de carga
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                Toast.makeText(getContext(), R.string.loading_captured_pokemon, Toast.LENGTH_SHORT).show();
+            }
         });
 
-        // Se devuelve la vista inflada para que se muestre en la pantalla.
-        return view;
+        // Observar mensajes de error
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null && !errorMessage.isEmpty()) {
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void updatePokemonList(List<Pokemon> capturedPokemonList) {
+        adapter.updatePokemonList(capturedPokemonList);
+    }
+
+    private boolean isPokemonListEmpty() {
+        List<Pokemon> currentList = viewModel.getCapturedPokemonList().getValue();
+        return currentList == null || currentList.isEmpty();
     }
 }
