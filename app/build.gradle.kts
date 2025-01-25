@@ -66,6 +66,8 @@ dependencies {
     implementation (libs.squareup.picasso)
     implementation(libs.firebase.firestore)
 
+    implementation (libs.cardview)
+
 
     // Dependencias de pruebas
     testImplementation(libs.junit) // Pruebas unitarias con JUnit

@@ -1,54 +1,79 @@
 package alcaide.bautista.pmdm03_mab_v03.data;
 
+import java.util.List;
+
 public class Pokemon {
     private String name;  // Nombre del Pokémon
-    private int id;       // ID del Pokémon (necesario para formar la URL de la imagen)
-    private String url;   // URL base del Pokémon (opcional, según los datos de origen)
+    private int id;       // ID del Pokémon
+    private String url;   // URL base del Pokémon (opcional)
+    private List<Type> types;  // Lista de tipos del Pokémon (para la versión detallada)
+    private int weight;  // Peso del Pokémon (en hectogramos)
+    private int height;  // Altura del Pokémon (en decímetros)
+    private Sprites sprites;  // Información de sprites (para la versión detallada)
 
     // Constructor vacío necesario para Firestore
     public Pokemon() {
     }
 
-    // Constructor con todos los parámetros
+    // Constructor para la versión básica con solo nombre, ID y URL
     public Pokemon(String name, int id, String url) {
         this.name = name;
         this.id = id;
         this.url = url;
     }
 
+    // Constructor para la versión detallada (con tipos, peso, altura y sprites)
+    public Pokemon(String name, int id, List<Type> types, int weight, int height) {
+        this.name = name;
+        this.id = id;
+        this.types = types;
+        this.weight = weight;
+        this.height = height;
+    }
 
+    // Getters y setters
 
-    // Getter para el nombre del Pokémon
     public String getName() {
         return name;
     }
 
-    // Setter para el nombre del Pokémon
     public void setName(String name) {
         this.name = name;
     }
 
-    // Getter para el ID del Pokémon
     public int getId() {
         return id;
     }
 
-    // Setter para el ID del Pokémon
     public void setId(int id) {
         this.id = id;
     }
 
-    // Getter para la URL del Pokémon
-    public String getUrl() {
-        return url;
+    public List<Type> getTypes() {
+        return types;
     }
 
-    // Setter para la URL del Pokémon
-    public void setUrl(String url) {
-        this.url = url;
+
+    public int getWeight() {
+        return weight;
     }
 
-    // Método para obtener el ID del Pokémon a partir de la URL (si no está definido explícitamente)
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+
+    // Método para obtener la URL de la imagen del Pokémon (usando el sprite oficial)
+    public String getImageUrl() {
+            return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+    }
+
+    // Método para extraer el ID desde la URL si es necesario
     public void extractIdFromUrl() {
         if (url != null && !url.isEmpty()) {
             String[] urlParts = url.split("/");
@@ -56,8 +81,42 @@ public class Pokemon {
         }
     }
 
-    // Getter para la URL de la imagen del Pokémon
-    public String getImageUrl() {
-        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+    // Clase interna para representar los tipos del Pokémon
+    public static class Type {
+        private TypeDetails type;
+
+        public TypeDetails getType() {
+            return type;
+        }
+
+        public void setType(TypeDetails type) {
+            this.type = type;
+        }
+
+        // Clase interna para detalles del tipo
+        public static class TypeDetails {
+            private String name;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+        }
+    }
+
+    // Clase interna para representar los sprites del Pokémon
+    public static class Sprites {
+        private String officialArtwork;
+
+        public String getOfficialArtwork() {
+            return officialArtwork;
+        }
+
+        public void setOfficialArtwork(String officialArtwork) {
+            this.officialArtwork = officialArtwork;
+        }
     }
 }

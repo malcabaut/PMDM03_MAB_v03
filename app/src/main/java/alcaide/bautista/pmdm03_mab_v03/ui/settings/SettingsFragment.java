@@ -1,6 +1,6 @@
 package alcaide.bautista.pmdm03_mab_v03.ui.settings;
 
-// Importaciones necesarias para el funcionamiento del fragmento.
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import alcaide.bautista.pmdm03_mab_v03.LoginActivity;
 import alcaide.bautista.pmdm03_mab_v03.databinding.FragmentSettingsBinding;
 
 /**
@@ -46,6 +48,43 @@ public class SettingsFragment extends Fragment {
         // Vincula el TextView del diseño con los datos proporcionados por el ViewModel.
         final TextView textView = binding.textSettings;
         settingsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        // Observa el evento de eliminación de Pokémon
+        settingsViewModel.getDeletePokemonEvent().observe(getViewLifecycleOwner(), event -> {
+            if (event != null && event) {
+                // Lógica para eliminar Pokémon
+                // Aquí podrías añadir la lógica que elimine el Pokémon, o realizar una acción visual.
+                settingsViewModel.updateText("Pokemon eliminado");
+            }
+        });
+
+
+        // Observa el evento de logout
+        settingsViewModel.getLogoutEvent().observe(getViewLifecycleOwner(), event -> {
+            if (event != null && event) {
+                // Llama al método de logout en el ViewModel para cerrar sesión en Firebase
+                settingsViewModel.logoutFromFirebase();
+                // Realiza la lógica para redirigir o actualizar la UI tras cerrar sesión
+                // Por ejemplo, ir al LoginActivity
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        // Vincula el Switch de idioma
+        SwitchCompat languageSwitch = binding.switchLanguage;
+        languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            settingsViewModel.setLanguageChanged(isChecked);
+            // Aquí podrías implementar la lógica para cambiar el idioma de la aplicación.
+            // Por ejemplo, cambiar el idioma según el valor de `isChecked`.
+        });
+
+
+        // Configura los botones
+        binding.buttonDeletePokemon.setOnClickListener(v -> settingsViewModel.deleteAllCapturedPokemon());
+        binding.buttonAbout.setOnClickListener(v -> settingsViewModel.onAbout(requireContext()));
+        binding.buttonLogout.setOnClickListener(v -> settingsViewModel.onLogout());
 
         // Devuelve la vista raíz para que se muestre en la pantalla.
         return root;

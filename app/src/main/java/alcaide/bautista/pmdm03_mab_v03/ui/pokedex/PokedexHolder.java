@@ -45,7 +45,7 @@ public class PokedexHolder extends RecyclerView.ViewHolder {
         Picasso.get()
                 .load(imageUrl)
                 .placeholder(R.drawable.pokebola_transformadose) // Imagen durante la carga
-                .error(R.drawable.error_image) // Imagen en caso de error
+                .error(R.drawable.ic_error_drawable) // Imagen en caso de error
                 .into(pokemonImageView);
     }
 }

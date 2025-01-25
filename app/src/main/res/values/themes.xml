@@ -1,9 +1,35 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PMDM03_MAB_v03" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <!-- Base application theme -->
+    <style name="Theme.PMDM03_MAB_v03" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/pokemonLightBlue</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimaryContainer">@color/pokemonLightPurple</item>
+        <item name="colorOnPrimaryContainer">@color/pokemonBrown</item>
 
-    <style name="Theme.PMDM03_MAB_v03" parent="Base.Theme.PMDM03_MAB_v03" />
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/pokemonBlue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/pokemonPurple</item>
+        <item name="colorOnSecondaryContainer">@color/black</item>
+
+        <!-- Tertiary colors -->
+        <item name="colorTertiary">@color/pokemonBlue</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorTertiaryContainer">@color/pokemonLightBlue</item>
+        <item name="colorOnTertiaryContainer">@color/black</item>
+
+        <!-- Background and surface -->
+
+        <item name="colorOnBackground">@color/black</item>
+        <item name="colorSurface">@color/pokemonLightGray</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorSurfaceVariant">@color/pokemonGray</item>
+        <item name="colorOnSurfaceVariant">@color/black</item>
+
+        <!-- Error -->
+        <item name="colorOnError">@color/white</item>
+        <item name="colorErrorContainer">@color/pokemonLightRed</item>
+        <item name="colorOnErrorContainer">@color/black</item>
+    </style>
 </resources>

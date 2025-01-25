@@ -3,18 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_captured_pokemon">
+    app:startDestination="@id/nav_captured">
 
     <fragment
-        android:id="@+id/nav_captured_pokemon"
+        android:id="@+id/nav_captured"
         android:name="alcaide.bautista.pmdm03_mab_v03.ui.captured_pokemon.CapturedPokemonFragment"
         android:label="Captured Pokémon"
         tools:layout="@layout/fragment_captured_pokemon"
-        >
-        <action
-            android:id="@+id/action_nav_captured_pokemon_to_nav_settings"
-            app:destination="@id/nav_settings" />
-    </fragment>
+        />
 
     <fragment
         android:id="@+id/nav_pokedex"
@@ -27,6 +23,21 @@
         android:id="@+id/nav_settings"
         android:name="alcaide.bautista.pmdm03_mab_v03.ui.settings.SettingsFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_settings"
-        />
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_nav_settings_to_nav_detail"
+            app:destination="@id/nav_detail" />
+    </fragment>
+
+    <!-- Añadir el argumento pokemonId para que se pase al DetailPokemonFragment -->
+    <fragment
+        android:id="@+id/nav_detail"
+        android:name="alcaide.bautista.pmdm03_mab_v03.ui.detail_pokemon.DetailPokemonFragment"
+        android:label="Detail Pokémon"
+        tools:layout="@layout/fragment_detail_pokemon">
+        <argument
+            android:name="pokemonId"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

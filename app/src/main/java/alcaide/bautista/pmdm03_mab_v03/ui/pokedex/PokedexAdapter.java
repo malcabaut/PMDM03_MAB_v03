@@ -1,9 +1,11 @@
 package alcaide.bautista.pmdm03_mab_v03.ui.pokedex;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +42,7 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexHolder> {
         holder.bind(pokemon);
 
         // Agregar un listener para manejar clics en el ítem
-        holder.itemView.setOnClickListener(v -> manejarClickPokemon(pokemon));
+        holder.itemView.setOnClickListener(v -> manejarClickPokemon(pokemon, holder.itemView.getContext()));
     }
 
     @Override
@@ -51,9 +53,10 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexHolder> {
     /**
      * Maneja el evento de clic en un Pokémon.
      */
-    private void manejarClickPokemon(PokemonResponse.Result pokemon) {
+    private void manejarClickPokemon(PokemonResponse.Result pokemon, Context context) {
         if (userId == null || userId.isEmpty()) {
             Log.w("PokedexAdapter", "El userId es nulo o está vacío, no se puede guardar la información del Pokémon.");
+            Toast.makeText(context, "Error: Usuario no autenticado.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -65,20 +68,25 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexHolder> {
         datosPokemon.put("pokemon_imagen_url", pokemon.getImageUrl());
 
         // Guardar los datos en Firestore
-        guardarDatosPokemonEnFirestore(datosPokemon);
+        guardarDatosPokemonEnFirestore(datosPokemon, context);
     }
 
     /**
      * Guarda los datos del Pokémon en Firestore.
      */
-    private void guardarDatosPokemonEnFirestore(Map<String, Object> datosPokemon) {
+    private void guardarDatosPokemonEnFirestore(Map<String, Object> datosPokemon, Context context) {
         db.collection("pokemon_data")
                 .add(datosPokemon)
-                .addOnSuccessListener(documentReference ->
-                        Log.d("PokedexAdapter", "Documento añadido con ID: " + documentReference.getId())
-                )
-                .addOnFailureListener(e ->
-                        Log.e("PokedexAdapter", "Error al añadir el documento", e)
-                );
+                .addOnSuccessListener(documentReference -> {
+                    Log.d("PokedexAdapter", "Documento añadido con ID: " + documentReference.getId());
+                    // Muestra un Toast notificando que el Pokémon ha sido capturado.
+                    Toast.makeText(context, "¡Pokémon capturado!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("PokedexAdapter", "Error al añadir el documento", e);
+                    // Muestra un Toast notificando que hubo un error.
+                    Toast.makeText(context, "Error al capturar el Pokémon", Toast.LENGTH_SHORT).show();
+                });
     }
+
 }

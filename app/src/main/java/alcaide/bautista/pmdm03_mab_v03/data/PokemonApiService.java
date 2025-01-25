@@ -7,16 +7,27 @@ import retrofit2.http.Query;
 
 public interface PokemonApiService {
 
-    // Endpoint para obtener una lista de Pokémon con paginación
+    /**
+     * Obtener una lista de Pokémon con paginación.
+     *
+     * @param offset Número de Pokémon a saltar.
+     * @param limit Número máximo de Pokémon a devolver.
+     * @return Lista de Pokémon paginada.
+     */
     @GET("pokemon")
     Call<PokemonResponse> getPokemonList(
             @Query("offset") int offset,
             @Query("limit") int limit
     );
 
-    // Endpoint para obtener los detalles de un Pokémon por su ID
-    @GET("pokemon/{id}")
-    Call<PokemonResponse.Result> getPokemonDetails(
-            @Path("id") int id
+    /**
+     * Obtener los detalles de un Pokémon por ID o nombre.
+     *
+     * @param idOrName ID (número) o nombre del Pokémon.
+     * @return Detalles del Pokémon.
+     */
+    @GET("pokemon/{idOrName}")
+    Call<Pokemon> getPokemonDetails(
+            @Path("idOrName") String idOrName
     );
 }

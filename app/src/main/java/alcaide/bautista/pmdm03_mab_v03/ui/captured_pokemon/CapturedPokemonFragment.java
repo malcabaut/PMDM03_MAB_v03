@@ -1,6 +1,7 @@
 package alcaide.bautista.pmdm03_mab_v03.ui.captured_pokemon;
 
 import android.os.Bundle;
+import android.util.Log;  // Añadir Log para depuración
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class CapturedPokemonFragment extends Fragment {
 
     private CapturedPokemonViewModel viewModel;
     private CapturedPokemonAdapter adapter;
+    private static final String TAG = "CapturedPokemonFragment";  // Para los logs
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,10 +68,16 @@ public class CapturedPokemonFragment extends Fragment {
 
         // Configurar el listener para los clics en los elementos
         adapter.setOnItemClickListener(pokemon -> {
-            // Navegar al detalle del Pokémon
-            Bundle bundle = new Bundle();
-            bundle.putInt("pokemonId", pokemon.getId()); // Asegúrate de que Pokémon tiene un ID válido
-            Navigation.findNavController(view).navigate(R.id.nav_settings, bundle);
+            // Verificar que el Pokémon tiene un ID válido antes de pasar al siguiente fragmento
+            if (pokemon.getId() > 0) {
+                Log.d(TAG, "ID del Pokémon capturado: " + pokemon.getId());  // Añadir log para depuración
+                Bundle bundle = new Bundle();
+                bundle.putInt("pokemonId", pokemon.getId()); // Asegúrate de que Pokémon tiene un ID válido
+                Navigation.findNavController(view).navigate(R.id.nav_detail, bundle);
+            } else {
+                Log.e(TAG, "ID del Pokémon es inválido o nulo");
+                Toast.makeText(getContext(), "ID del Pokémon inválido", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

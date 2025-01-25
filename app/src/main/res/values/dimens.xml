@@ -1,6 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="activity_margin">16dp</dimen>
-    <dimen name="input_margin_top">96dp</dimen>
-    <dimen name="input_spacing">8dp</dimen>
-    <dimen name="button_margin_top">16dp</dimen>
+    <dimen name="text_name_size">40sp</dimen>
+    <dimen name="text_description_size">25dp</dimen>
+    <dimen name="text_tool_bar">45dp</dimen>
+    <dimen name="text_skills_size">20dp</dimen>
+    <dimen name="text_padding">5dp</dimen>
+    <dimen name="settings_padding">25dp</dimen>
+
 </resources>

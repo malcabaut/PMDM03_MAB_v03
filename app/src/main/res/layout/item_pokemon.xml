@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:gravity="center_vertical"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/white"
+    tools:context=".ui.pokedex.PokedexFragment">
 
-    <!-- ID del Pokémon -->
-    <TextView
-        android:id="@+id/pokemon_id"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textSize="14sp"
-        android:textColor="@color/common_google_signin_btn_text_light"
-        android:textStyle="italic" />
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@color/pokemonCardView">
 
-    <!-- Nombre del Pokémon -->
-    <TextView
-        android:id="@+id/pokemon_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginEnd="16dp" />
+        <!-- ID del Pokémon -->
+        <TextView
+            android:id="@+id/pokemon_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:textStyle="italic"
+            android:text="@string/pokemon_id_placeholder" />
 
-    <!-- Imagen del Pokémon -->
-    <ImageView
-        android:id="@+id/pokemon_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/pok_mon_capturados" />
-</LinearLayout>
+        <!-- Nombre del Pokémon -->
+        <TextView
+            style="@style/H1"
+            android:id="@+id/pokemon_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="@string/app_character_name" />
+
+        <!-- Imagen del Pokémon -->
+        <ImageView
+            android:id="@+id/pokemon_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/pok_mon_capturados"
+            android:src="@drawable/ic_pokemon_captured"
+            />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

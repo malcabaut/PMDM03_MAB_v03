@@ -36,7 +36,7 @@ public class CapturedPokemonViewHolder extends RecyclerView.ViewHolder {
         Picasso.get()
                 .load(pokemon.getImageUrl())
                 .placeholder(R.drawable.ic_pokemon_captured) // Imagen por defecto mientras carga.
-                .error(R.drawable.error_image)       // Imagen en caso de error.
+                .error(R.drawable.ic_error_drawable)       // Imagen en caso de error.
                 .into(pokemonImageView);
     }
 }

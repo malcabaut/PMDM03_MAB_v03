@@ -17,6 +17,7 @@ junitVersion = "1.2.1"
 lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
 material = "1.12.0"
+materialVersion = "1.4.0"
 navigationFragment = "2.8.5"
 navigationUi = "2.8.5"
 picassoVersion = "2.8"
@@ -29,6 +30,7 @@ firebaseFirestore = "25.1.1"
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+material-v140 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }

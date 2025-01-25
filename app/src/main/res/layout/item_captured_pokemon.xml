@@ -14,7 +14,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/pokemonCardView">
 
         <!-- Imagen del Pokémon -->
         <ImageView
@@ -22,16 +23,17 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:contentDescription="@string/pokemon_image_desc"
+            android:src="@drawable/ic_pokemon_captured" />
 
         <!-- Nombre del Pokémon -->
         <TextView
+            style="@style/H1"
             android:id="@+id/pokemon_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Pikachu"
-            android:textSize="18sp"
+            android:text="@string/app_character_name"
             android:layout_gravity="center_vertical"
             android:textColor="@android:color/black" />
 

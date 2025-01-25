@@ -1,22 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
-    <TextView
-        android:id="@+id/textSettings"
+    android:padding="@dimen/settings_padding">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</LinearLayout>
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <!-- Cambio de idioma -->
+        <TextView
+            android:id="@+id/textSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_change_language"
+            android:textSize="18sp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Switch para cambiar idioma con MaterialSwitch -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/language_switch_label"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Botón para eliminar Pokémon -->
+        <Button
+            android:id="@+id/buttonDeletePokemon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_pokemon_option"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botón Acerca de -->
+        <Button
+            android:id="@+id/buttonAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botón Cerrar sesión -->
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/logout" />
+    </LinearLayout>
+</ScrollView>

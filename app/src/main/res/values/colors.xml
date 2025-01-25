@@ -1,5 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores base -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores adicionales -->
+    <color name="gray">#FF888888</color> <!-- Usado para el ID del Pokémon -->
+    <color name="pokemonLightGray">#F3F3F3</color> <!-- Fondo ligero -->
+    <color name="pokemonGray">#B0B0B0</color> <!-- Gris más oscuro -->
+
+    <!-- Colores inspirados en Pokémon -->
+    <color name="pokemonYellow">#FFCC00</color> <!-- Amarillo vibrante -->
+    <color name="pokemonLightYellow">#FFF4C2</color> <!-- Amarillo claro -->
+    <color name="pokemonBrown">#6E4705</color> <!-- Marrón para contrastar con amarillo -->
+
+    <color name="pokemonRed">#FF4400</color> <!-- Rojo -->
+    <color name="pokemonLightRed">#FF9A8C</color> <!-- Rojo claro -->
+
+    <color name="pokemonBlue">#3B4CCA</color> <!-- Azul profundo -->
+    <color name="pokemonLightBlue">#66B3FF</color> <!-- Azul claro -->
+    <color name="pokemonCardView">#9DCDFF</color> <!-- Fondo del CardView Azul claro claro -->
+
+    <color name="pokemonGreen">#7AC142</color> <!-- Verde, como el de Bulbasaur -->
+    <color name="pokemonLightGreen">#CFFFC1</color> <!-- Verde claro suave -->
+
+    <color name="pokemonPurple">#9B4F96</color> <!-- Púrpura vibrante -->
+    <color name="pokemonLightPurple">#E3BEEA</color> <!-- Púrpura claro -->
+
+    <!-- Colores para acentos y detalles -->
+    <color name="pokemonPink">#FF76C4</color> <!-- Rosa llamativo -->
+    <color name="pokemonLightPink">#FFCCE4</color> <!-- Rosa claro -->
+
+    <color name="pokemonOrange">#FF7F11</color> <!-- Naranja -->
+    <color name="pokemonLightOrange">#FFCC99</color> <!-- Naranja claro -->
+
+    <!-- Colores neutrales -->
+    <color name="pokemonBeige">#F5E6CC</color> <!-- Beige -->
+
+    <color name="T_cc">#CC000000</color> <!-- Negro translúcido -->
+    <color name="O_50">#50FFFFFF</color> <!-- Blanco translúcido -->
+
+
 </resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="H1" parent="Theme.AppCompat.Light.DarkActionBar">
+        ...
+        <item name="android:fontFamily">@font/pokemon</item>
+        <item name="android:textSize">@dimen/text_name_size</item>
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:textColor">@color/T_cc</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">20</item>
+        <item name="android:shadowColor">#FFAAAAAA</item>
+
+    </style>
+
+    <style name="description" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:fontFamily">@font/super_mario</item>
+        <item name="android:textSize">@dimen/text_description_size</item>
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">20</item>
+        <item name="android:shadowColor">#FFFFFF</item>
+    </style>
+
+    <style name="skills" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:fontFamily">@font/super_mario</item>
+        <item name="android:textSize">@dimen/text_skills_size</item>
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:textColor">@color/T_cc</item>
+        <item name="android:background">@color/O_50</item>
+    </style>
+
+
+</resources>

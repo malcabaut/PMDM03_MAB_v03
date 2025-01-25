@@ -32,7 +32,41 @@
     <string name="pok_mon_capturados">Pokémon Capturados</string>
     <string name="pok_dex">Pokédex</string>
     <string name="setting">Ajustes</string>
-    <string name="pokemon_image_desc">Blabla\n</string>
+    <string name="pokemon_image_desc">imagen del pokemon</string>
     <string name="no_captured_pokemon">No has capturado ningun pokemon</string>
     <string name="loading_captured_pokemon">Cargando...</string>
+
+    <!-- Cambiar idioma -->
+    <string name="app_change_language">Cambiar idioma</string>
+    <string name="language_switch_label">Español</string>
+
+    <!-- Eliminación de Pokémon -->
+    <string name="delete_pokemon_option">liberar todos Pokémon capturados</string>
+    <string name="allow_deletion">Permitir eliminación</string>
+
+    <!-- Acerca de -->
+    <string name="about">Acerca de</string>
+    <string name="about_dialog_title">Acerca de la aplicación</string>
+    <string name="about_dialog_message">Desarrollador: Tu Nombre\nVersión: 1.0.0</string>
+
+    <!-- Cerrar sesión -->
+    <string name="logout">Cerrar sesión</string>
+    <string name="logout_confirmation">¿Estás seguro de que deseas cerrar sesión?</string>
+
+    <!-- Índice de la Pokédex -->
+    <string name="pokedex_index_placeholder">Pokédex #%1$d</string>
+
+    <!-- Información del Pokémon -->
+    <string name="pokemon_name_placeholder">Bulbasaur</string>
+    <string name="pokemon_type_1">Grass</string>
+    <string name="pokemon_type_2">Poison</string>
+    <string name="pokemon_weight_placeholder">Peso: %1$.1f kg</string>
+    <string name="pokemon_height_placeholder">Altura: %1$.1f m</string>
+
+    <!-- Otros -->
+    <string name="pokemon_id_placeholder">0</string>
+    <string name="app_character_name">nombre</string>
+    <string name="app_about">Acerca de …</string>
+    <string name="app_about_info"><![CDATA[Aplicacion desarrollada por <b>Miguel Alcaide Bautista</b>.<br>Version 1]]></string>
+    <string name="settings_title">holahola\n</string>
 </resources>
