@@ -3,71 +3,71 @@
     <string name="app_name">PMDM03_MAB_v03</string>
 
     <!-- Cadenas para iniciar sesión -->
-    <string name="prompt_email">Correo electrónico</string>
-    <string name="prompt_password">Contraseña</string>
-    <string name="action_sign_in">Iniciar sesión o crear cuenta</string>
-    <string name="google_sign_in">Botón de Google Sign-In</string>
+    <string name="prompt_email">Correo electrónico</string> <!-- Campo para ingresar el correo electrónico -->
+    <string name="prompt_password">Contraseña</string> <!-- Campo para ingresar la contraseña -->
+    <string name="action_sign_in">Iniciar sesión o crear cuenta</string> <!-- Acción para iniciar sesión o crear cuenta -->
+    <string name="google_sign_in">Botón de Google Sign-In</string> <!-- Texto del botón para iniciar sesión con Google -->
 
     <!-- Cadenas para el menú de navegación -->
-    <string name="nav_captured_pokemon">Pokémon Capturados</string>
-    <string name="nav_pokedex">Pokédex</string>
-    <string name="nav_settings">Ajustes</string>
-    <string name="navigation_drawer_open">Abrir menú de navegación</string>
-    <string name="navigation_drawer_close">Cerrar menú de navegación</string>
+    <string name="nav_captured_pokemon">Pokémon Capturados</string> <!-- Texto para la opción de Pokémon capturados en el menú -->
+    <string name="nav_pokedex">Pokédex</string> <!-- Texto para la opción de Pokédex en el menú -->
+    <string name="nav_settings">Ajustes</string> <!-- Texto para la opción de Ajustes en el menú -->
+    <string name="navigation_drawer_open">Abrir menú de navegación</string> <!-- Texto para abrir el menú de navegación -->
+    <string name="navigation_drawer_close">Cerrar menú de navegación</string> <!-- Texto para cerrar el menú de navegación -->
 
     <!-- Cadenas para los fragmentos -->
-    <string name="fragment_captured_pokemon_title">Pokémon Capturados</string>
-    <string name="fragment_pokedex_title">Pokédex</string>
-    <string name="fragment_settings_title">Ajustes</string>
+    <string name="fragment_captured_pokemon_title">Pokémon Capturados</string> <!-- Título del fragmento de Pokémon Capturados -->
+    <string name="fragment_pokedex_title">Pokédex</string> <!-- Título del fragmento de Pokédex -->
+    <string name="fragment_settings_title">Ajustes</string> <!-- Título del fragmento de Ajustes -->
 
     <!-- Mensajes y notificaciones -->
-    <string name="msg_loading">Cargando...</string>
-    <string name="msg_error_generic">Se produjo un error. Por favor, inténtalo de nuevo.</string>
-    <string name="msg_no_data">No hay datos disponibles en este momento.</string>
+    <string name="msg_loading">Cargando...</string> <!-- Mensaje para mostrar mientras se está cargando algo -->
+    <string name="msg_error_generic">Se produjo un error. Por favor, inténtalo de nuevo.</string> <!-- Mensaje de error genérico -->
+    <string name="msg_no_data">No hay datos disponibles en este momento.</string> <!-- Mensaje cuando no hay datos disponibles -->
 
     <!-- Acciones -->
-    <string name="action_retry">Reintentar</string>
-    <string name="action_close">Cerrar</string>
-    <string name="action_save">Guardar</string>
-    <string name="pok_mon_capturados">Pokémon Capturados</string>
-    <string name="pok_dex">Pokédex</string>
-    <string name="setting">Ajustes</string>
-    <string name="pokemon_image_desc">imagen del pokemon</string>
-    <string name="no_captured_pokemon">No has capturado ningun pokemon</string>
-    <string name="loading_captured_pokemon">Cargando...</string>
+    <string name="action_retry">Reintentar</string> <!-- Acción de reintentar -->
+    <string name="action_close">Cerrar</string> <!-- Acción de cerrar -->
+    <string name="action_save">Guardar</string> <!-- Acción de guardar -->
+    <string name="pok_mon_capturados">Pokémon Capturados</string> <!-- Texto para la sección de Pokémon Capturados -->
+    <string name="pok_dex">Pokédex</string> <!-- Texto para la sección de Pokédex -->
+    <string name="setting">Ajustes</string> <!-- Texto para la sección de Ajustes -->
+    <string name="pokemon_image_desc">imagen del pokemon</string> <!-- Descripción de la imagen de un Pokémon -->
+    <string name="no_captured_pokemon">No has capturado ningun pokemon</string> <!-- Mensaje cuando no se han capturado Pokémon -->
+    <string name="loading_captured_pokemon">Cargando...</string> <!-- Mensaje de carga de Pokémon capturados -->
 
     <!-- Cambiar idioma -->
-    <string name="app_change_language">Cambiar idioma</string>
-    <string name="language_switch_label">Español</string>
+    <string name="app_change_language">Cambiar idioma a Ingles</string> <!-- Texto para cambiar el idioma a inglés -->
 
     <!-- Eliminación de Pokémon -->
-    <string name="delete_pokemon_option">liberar todos Pokémon capturados</string>
-    <string name="allow_deletion">Permitir eliminación</string>
+    <string name="delete_pokemon_option">liberar todos Pokémon capturados</string> <!-- Texto para eliminar todos los Pokémon capturados -->
+    <string name="allow_deletion">Permitir eliminación</string> <!-- Texto para permitir la eliminación de un Pokémon -->
 
     <!-- Acerca de -->
-    <string name="about">Acerca de</string>
-    <string name="about_dialog_title">Acerca de la aplicación</string>
-    <string name="about_dialog_message">Desarrollador: Tu Nombre\nVersión: 1.0.0</string>
+    <string name="about">Acerca de</string> <!-- Texto para la sección Acerca de -->
+    <string name="about_dialog_title">Acerca de la aplicación</string> <!-- Título del diálogo Acerca de -->
+    <string name="about_dialog_message">Desarrollador: Tu Nombre\nVersión: 1.0.0</string> <!-- Mensaje del diálogo Acerca de -->
 
     <!-- Cerrar sesión -->
-    <string name="logout">Cerrar sesión</string>
-    <string name="logout_confirmation">¿Estás seguro de que deseas cerrar sesión?</string>
+    <string name="logout">Cerrar sesión</string> <!-- Texto para cerrar sesión -->
+    <string name="logout_confirmation">¿Estás seguro de que deseas cerrar sesión?</string> <!-- Confirmación para cerrar sesión -->
 
     <!-- Índice de la Pokédex -->
-    <string name="pokedex_index_placeholder">Pokédex #%1$d</string>
+    <string name="pokedex_index_placeholder">Pokédex #%1$d</string> <!-- Placeholder para el índice de un Pokémon en la Pokédex -->
 
     <!-- Información del Pokémon -->
-    <string name="pokemon_name_placeholder">Bulbasaur</string>
-    <string name="pokemon_type_1">Grass</string>
-    <string name="pokemon_type_2">Poison</string>
-    <string name="pokemon_weight_placeholder">Peso: %1$.1f kg</string>
-    <string name="pokemon_height_placeholder">Altura: %1$.1f m</string>
+    <string name="pokemon_name_placeholder">Bulbasaur</string> <!-- Nombre de un Pokémon (placeholder) -->
+    <string name="pokemon_type_1">Grass</string> <!-- Tipo de Pokémon 1 (por ejemplo, Grass) -->
+    <string name="pokemon_type_2">Poison</string> <!-- Tipo de Pokémon 2 (por ejemplo, Poison) -->
+    <string name="pokemon_weight_placeholder">Peso: %1$.1f kg</string> <!-- Placeholder para el peso de un Pokémon -->
+    <string name="pokemon_height_placeholder">Altura: %1$.1f m</string> <!-- Placeholder para la altura de un Pokémon -->
 
     <!-- Otros -->
-    <string name="pokemon_id_placeholder">0</string>
-    <string name="app_character_name">nombre</string>
-    <string name="app_about">Acerca de …</string>
-    <string name="app_about_info"><![CDATA[Aplicacion desarrollada por <b>Miguel Alcaide Bautista</b>.<br>Version 1]]></string>
-    <string name="settings_title">holahola\n</string>
-    <string name="delete_item_desc">icono para borrar el item</string>
+    <string name="pokemon_id_placeholder">0</string> <!-- Placeholder para el ID de un Pokémon -->
+    <string name="pokemon_deleted">Pokémon %1$s eliminado</string> <!-- Mensaje cuando un Pokémon es eliminado -->
+    <string name="app_character_name">nombre</string> <!-- Nombre de un personaje de la app -->
+    <string name="app_about">Acerca de …</string> <!-- Texto para la sección Acerca de -->
+    <string name="app_about_info"><![CDATA[Aplicacion desarrollada por <b>Miguel Alcaide Bautista</b>.<br>Version 1]]></string> <!-- Información de la aplicación (desarrollador y versión) -->
+    <string name="settings_title">holahola\n</string> <!-- Título para la sección de ajustes (temporal) -->
+    <string name="delete_item_desc">icono para borrar el item</string> <!-- Descripción para el ícono de borrar un ítem -->
 </resources>

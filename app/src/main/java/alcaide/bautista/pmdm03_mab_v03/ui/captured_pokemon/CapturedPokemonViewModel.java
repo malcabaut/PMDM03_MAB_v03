@@ -9,7 +9,10 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,8 @@ public class CapturedPokemonViewModel extends ViewModel {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    private static final String TAG = "CapturedPokemonVM";
 
     /**
      * Obtiene la lista observable de Pokémon capturados.
@@ -59,9 +64,9 @@ public class CapturedPokemonViewModel extends ViewModel {
     }
 
     /**
-     * Método para obtener la lista de Pokémon capturados por el usuario actual.
+     * Configura un listener en tiempo real para sincronizar la lista de Pokémon capturados.
      */
-    public void fetchCapturedPokemon() {
+    public void observeCapturedPokemon() {
         FirebaseUser user = auth.getCurrentUser();
 
         // Verifica si el usuario está autenticado.
@@ -70,30 +75,30 @@ public class CapturedPokemonViewModel extends ViewModel {
             return;
         }
 
-        // Inicia el estado de carga.
+        // Muestra que la carga está activa.
         isLoading.setValue(true);
 
+        // Configura el listener para actualizaciones en tiempo real.
         db.collection("pokemon_data")
-                .whereEqualTo("user_id", user.getUid()) // Filtra por el ID del usuario.
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<Pokemon> pokemonList = new ArrayList<>();
-
-                    // Procesa cada documento recibido.
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        Pokemon pokemon = parsePokemonFromDocument(document);
-                        if (pokemon != null) {
-                            pokemonList.add(pokemon);
-                        }
+                .whereEqualTo("user_id", user.getUid()) // Filtra por el usuario actual.
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Log.e(TAG, "Error al observar cambios en los Pokémon", error);
+                        errorMessage.setValue("Error observando los cambios: " + error.getMessage());
+                        isLoading.setValue(false);
+                        return;
                     }
 
-                    // Actualiza la lista de Pokémon capturados y termina el estado de carga.
-                    capturedPokemonList.setValue(pokemonList);
-                    isLoading.setValue(false);
-                })
-                .addOnFailureListener(e -> {
-                    // Maneja los errores y termina el estado de carga.
-                    errorMessage.setValue("Error obteniendo Pokémon: " + e.getMessage());
+                    if (value != null) {
+                        List<Pokemon> updatedList = new ArrayList<>();
+                        for (DocumentSnapshot document : value) {
+                            Pokemon pokemon = parsePokemonFromDocument(document);
+                            if (pokemon != null) {
+                                updatedList.add(pokemon);
+                            }
+                        }
+                        capturedPokemonList.setValue(updatedList);
+                    }
                     isLoading.setValue(false);
                 });
     }
@@ -105,22 +110,19 @@ public class CapturedPokemonViewModel extends ViewModel {
      */
     private Pokemon parsePokemonFromDocument(DocumentSnapshot document) {
         try {
-            // Obtiene los campos necesarios del documento.
             String name = document.getString("pokemon_name"); // Nombre del Pokémon.
             Long idLong = document.getLong("pokemon_id"); // ID del Pokémon.
             String imageUrl = document.getString("pokemon_imagen_url"); // URL de la imagen.
 
-            // Verifica que los datos no sean nulos antes de crear el objeto.
             if (name != null && idLong != null && imageUrl != null) {
                 return new Pokemon(name, idLong.intValue(), imageUrl);
             } else {
-                Log.w("CapturedPokemonVM", "Datos incompletos en el documento: " + document.getId());
+                Log.w(TAG, "Datos incompletos en el documento: " + document.getId());
             }
         } catch (Exception e) {
-            // Maneja cualquier error al procesar el documento.
-            Log.e("CapturedPokemonVM", "Error procesando el documento: " + document.getId(), e);
+            Log.e(TAG, "Error procesando el documento: " + document.getId(), e);
         }
-        return null; // Retorna null si no se pudo procesar el documento.
+        return null;
     }
 
     /**
@@ -131,27 +133,21 @@ public class CapturedPokemonViewModel extends ViewModel {
     public void deleteCapturedPokemon(int pokemonId) {
         FirebaseUser user = auth.getCurrentUser();
 
-        // Verifica si el usuario está autenticado.
         if (user == null) {
             errorMessage.setValue("Usuario no autenticado.");
             return;
         }
 
-        // Inicia el estado de carga.
         isLoading.setValue(true);
 
-        // Busca el documento del Pokémon por el ID proporcionado y el usuario actual.
         db.collection("pokemon_data")
-                .whereEqualTo("user_id", user.getUid()) // Filtra por el ID del usuario.
-                .whereEqualTo("pokemon_id", pokemonId) // Filtra por el ID del Pokémon.
+                .whereEqualTo("user_id", user.getUid())
+                .whereEqualTo("pokemon_id", pokemonId)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    // Verifica si se encontró el Pokémon.
                     if (!queryDocumentSnapshots.isEmpty()) {
-                        // Obtiene el primer documento (asumiendo que el ID es único).
                         DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
 
-                        // Elimina el documento del Pokémon.
                         document.getReference().delete()
                                 .addOnSuccessListener(aVoid -> {
                                     successMessage.setValue("Pokémon eliminado correctamente.");
@@ -167,7 +163,6 @@ public class CapturedPokemonViewModel extends ViewModel {
                     }
                 })
                 .addOnFailureListener(e -> {
-                    // Maneja el error si ocurre durante la obtención del documento.
                     errorMessage.setValue("Error buscando el Pokémon: " + e.getMessage());
                     isLoading.setValue(false);
                 });

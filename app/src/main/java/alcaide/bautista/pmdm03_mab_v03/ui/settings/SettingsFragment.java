@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -45,10 +43,6 @@ public class SettingsFragment extends Fragment {
         // Se obtiene la raíz de la vista generada por el enlace.
         View root = binding.getRoot();
 
-        // Vincula el TextView del diseño con los datos proporcionados por el ViewModel.
-        final TextView textView = binding.textSettings;
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         // Observa el evento de eliminación de Pokémon
         settingsViewModel.getDeletePokemonEvent().observe(getViewLifecycleOwner(), event -> {
             if (event != null && event) {
@@ -57,7 +51,6 @@ public class SettingsFragment extends Fragment {
                 settingsViewModel.updateText("Pokemon eliminado");
             }
         });
-
 
         // Observa el evento de logout
         settingsViewModel.getLogoutEvent().observe(getViewLifecycleOwner(), event -> {
@@ -68,18 +61,15 @@ public class SettingsFragment extends Fragment {
                 // Por ejemplo, ir al LoginActivity
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
-
             }
         });
 
-        // Vincula el Switch de idioma
-        SwitchCompat languageSwitch = binding.switchLanguage;
-        languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            settingsViewModel.setLanguageChanged(isChecked);
-            // Aquí podrías implementar la lógica para cambiar el idioma de la aplicación.
-            // Por ejemplo, cambiar el idioma según el valor de `isChecked`.
+        // Vincula el botón de cambiar idioma
+        binding.buttonChangeLanguage.setOnClickListener(v -> {
+            settingsViewModel.setLanguageChanged(true);
+            // Aquí puedes implementar la lógica para cambiar el idioma de la aplicación.
+            // Por ejemplo, cambiar el idioma cuando se presiona el botón.
         });
-
 
         // Configura los botones
         binding.buttonDeletePokemon.setOnClickListener(v -> settingsViewModel.deleteAllCapturedPokemon());
