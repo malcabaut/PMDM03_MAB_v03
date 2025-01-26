@@ -2,117 +2,122 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/image_background"
     android:padding="16dp">
+
+    <!-- Imagen del Pokémon que ocupa toda la pantalla -->
+    <ImageView
+        android:id="@+id/pokemon_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/pokemon_image_desc"
+        android:src="@drawable/ic_pokemon_captured"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <!-- Título del índice de la Pokédex -->
     <TextView
+        style="@style/H1"
         android:id="@+id/pokedex_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pokemon_id_placeholder"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"/>
-
-    <!-- Imagen del Pokémon -->
-    <ImageView
-        android:id="@+id/pokemon_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/pokemon_image_desc"
-        android:scaleType="fitCenter"
-        app:layout_constraintWidth_percent="0.6"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toBottomOf="@id/pokedex_index"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/image_background"
-        android:src="@drawable/sample_pokemon"/>
+        android:layout_marginTop="16dp" />
 
     <!-- Nombre del Pokémon -->
     <TextView
+        style="@style/H2"
         android:id="@+id/pokemon_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_character_name"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/pokemon_image"
+        app:layout_constraintTop_toBottomOf="@id/pokedex_index"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp" />
 
-    <!-- Tipos del Pokémon -->
     <LinearLayout
         android:id="@+id/types_container"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/pokemon_name"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/weight_height_container"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Tipo 1 -->
         <TextView
+            style="@style/H3"
             android:id="@+id/type_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
             android:text="Grass"
-        android:textSize="14sp"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="4dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="visible"/>
+            android:shadowDx="10"
+            android:shadowDy="10"
+            android:shadowRadius="10"
+            android:visibility="visible" />
 
-        <!-- Tipo 2 -->
         <TextView
+            style="@style/H3"
             android:id="@+id/type_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
             android:text="Poison"
-        android:textSize="14sp"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="4dp"
-        android:visibility="gone"/>
+            android:shadowDx="10"
+            android:shadowDy="10"
+            android:shadowRadius="10"
+            android:visibility="invisible" />
     </LinearLayout>
+
 
     <!-- Peso y altura -->
     <LinearLayout
         android:id="@+id/weight_height_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/types_container"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/pokemon_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
+            style="@style/H3"
             android:id="@+id/weight"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Peso: 6.9 kg"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:layout_marginEnd="16dp"/>
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
+            android:shadowDx="10"
+            android:shadowDy="10"
+            android:shadowRadius="10"
+            android:text="Peso: 6.9 kg" />
 
         <TextView
+            style="@style/H3"
             android:id="@+id/height"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Altura: 0.7 m"
-            android:textSize="14sp"
-            android:textColor="@color/black"/>
+            android:shadowDx="10"
+            android:shadowDy="10"
+            android:shadowRadius="10"
+            android:text="Altura: 0.7 m" />
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 

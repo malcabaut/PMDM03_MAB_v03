@@ -69,4 +69,5 @@
     <string name="app_about">Acerca de …</string>
     <string name="app_about_info"><![CDATA[Aplicacion desarrollada por <b>Miguel Alcaide Bautista</b>.<br>Version 1]]></string>
     <string name="settings_title">holahola\n</string>
+    <string name="delete_item_desc">icono para borrar el item</string>
 </resources>

@@ -1,6 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme -->
     <style name="Theme.PMDM03_MAB_v03" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:fontFamily">@font/pokemon_solid</item>
+        <item name="android:textSize">@dimen/text_p_size</item>
         <!-- Primary colors -->
         <item name="colorPrimary">@color/pokemonLightBlue</item>
         <item name="colorOnPrimary">@color/black</item>

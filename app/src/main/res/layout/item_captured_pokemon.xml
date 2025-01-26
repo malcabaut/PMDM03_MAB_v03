@@ -10,19 +10,19 @@
     android:padding="16dp"
     tools:context=".ui.captured_pokemon.CapturedPokemonFragment">
 
-    <!-- LinearLayout para contener la imagen y el nombre del Pokémon -->
+    <!-- LinearLayout para contener la imagen, el nombre y el icono de borrar -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/pokemonCardView">
+        android:background="@color/pokemonLightLightBlue"
+        android:gravity="center_vertical">
 
         <!-- Imagen del Pokémon -->
         <ImageView
             android:id="@+id/pokemon_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_gravity="center_vertical"
             android:contentDescription="@string/pokemon_image_desc"
             android:src="@drawable/ic_pokemon_captured" />
 
@@ -30,13 +30,26 @@
         <TextView
             style="@style/H1"
             android:id="@+id/pokemon_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:text="@string/app_character_name"
-            android:layout_gravity="center_vertical"
             android:textColor="@android:color/black" />
+
+        <!-- Botón de borrar -->
+        <ImageView
+            android:id="@+id/delete_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@string/delete_item_desc"
+            android:src="@drawable/ic_delete"
+            android:clickable="true"
+            android:focusable="true" />
 
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
+

@@ -17,7 +17,7 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        android:background="@color/pokemonCardView">
+        android:background="@color/pokemonLightLightBlue">
 
         <!-- ID del Pokémon -->
         <TextView

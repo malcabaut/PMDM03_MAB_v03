@@ -2,36 +2,37 @@ package alcaide.bautista.pmdm03_mab_v03.data;
 
 import java.util.List;
 
+/**
+ * Clase que representa un Pokémon.
+ * Contiene información básica como nombre, ID, tipos, peso y altura.
+ */
 public class Pokemon {
     private String name;  // Nombre del Pokémon
-    private int id;       // ID del Pokémon
-    private String url;   // URL base del Pokémon (opcional)
-    private List<Type> types;  // Lista de tipos del Pokémon (para la versión detallada)
-    private int weight;  // Peso del Pokémon (en hectogramos)
-    private int height;  // Altura del Pokémon (en decímetros)
-    private Sprites sprites;  // Información de sprites (para la versión detallada)
+    private int id;       // ID único del Pokémon
+    private List<Type> types;  // Lista de tipos del Pokémon (se usa en información detallada)
+    private int weight;   // Peso del Pokémon en hectogramos
+    private int height;   // Altura del Pokémon en decímetros
 
-    // Constructor vacío necesario para Firestore
+    /**
+     * Constructor vacío necesario para Firestore.
+     * Firestore requiere un constructor sin argumentos para poder mapear los datos.
+     */
     public Pokemon() {
     }
 
-    // Constructor para la versión básica con solo nombre, ID y URL
+    /**
+     * Constructor básico para inicializar un Pokémon con nombre, ID y URL.
+     * @param name Nombre del Pokémon.
+     * @param id ID único del Pokémon.
+     * @param url URL base asociada al Pokémon.
+     */
     public Pokemon(String name, int id, String url) {
         this.name = name;
         this.id = id;
-        this.url = url;
+        // URL base asociada al Pokémon (opcional)
     }
 
-    // Constructor para la versión detallada (con tipos, peso, altura y sprites)
-    public Pokemon(String name, int id, List<Type> types, int weight, int height) {
-        this.name = name;
-        this.id = id;
-        this.types = types;
-        this.weight = weight;
-        this.height = height;
-    }
-
-    // Getters y setters
+    // Métodos Getter y Setter para los atributos principales.
 
     public String getName() {
         return name;
@@ -67,35 +68,33 @@ public class Pokemon {
         this.height = height;
     }
 
-
-    // Método para obtener la URL de la imagen del Pokémon (usando el sprite oficial)
+    /**
+     * Método para obtener la URL de la imagen del Pokémon.
+     * La imagen se obtiene del repositorio oficial de PokeAPI utilizando el ID del Pokémon.
+     * @return URL del sprite oficial del Pokémon.
+     */
     public String getImageUrl() {
-            return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
     }
 
-    // Método para extraer el ID desde la URL si es necesario
-    public void extractIdFromUrl() {
-        if (url != null && !url.isEmpty()) {
-            String[] urlParts = url.split("/");
-            this.id = Integer.parseInt(urlParts[urlParts.length - 1]);
-        }
-    }
-
-    // Clase interna para representar los tipos del Pokémon
+    /**
+     * Clase interna que representa un tipo de Pokémon.
+     * Cada Pokémon puede tener uno o más tipos asociados.
+     */
     public static class Type {
-        private TypeDetails type;
+        private TypeDetails type;  // Detalles del tipo
 
         public TypeDetails getType() {
             return type;
         }
 
-        public void setType(TypeDetails type) {
-            this.type = type;
-        }
 
-        // Clase interna para detalles del tipo
+        /**
+         * Clase interna que representa los detalles de un tipo.
+         * Contiene información como el nombre del tipo (por ejemplo: "fire", "water").
+         */
         public static class TypeDetails {
-            private String name;
+            private String name;  // Nombre del tipo
 
             public String getName() {
                 return name;
@@ -106,17 +105,5 @@ public class Pokemon {
             }
         }
     }
-
-    // Clase interna para representar los sprites del Pokémon
-    public static class Sprites {
-        private String officialArtwork;
-
-        public String getOfficialArtwork() {
-            return officialArtwork;
-        }
-
-        public void setOfficialArtwork(String officialArtwork) {
-            this.officialArtwork = officialArtwork;
-        }
-    }
 }
+

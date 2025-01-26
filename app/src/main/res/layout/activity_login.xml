@@ -9,21 +9,7 @@
     android:padding="16dp"
     tools:context=".LoginActivity">
 
-    <!-- ImageView para mostrar el GIF -->
-
     <!-- Campo de texto para el usuario (Email) -->
-    <ImageView
-        android:id="@+id/backgroundGif"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/pokebola_transformadose"
-        android:visibility="visible"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="129dp" />
-
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
@@ -46,7 +32,7 @@
         android:hint="@string/prompt_password"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
-        android:padding="12dp"
+        android:padding="12sp"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/username"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/action_sign_in"
-        android:backgroundTint="@color/design_default_color_primary"
-        android:textColor="@android:color/white"
+        android:backgroundTint="@color/pokemonBlue"
+        android:textColor="@color/pokemonLightGray"
         android:enabled="false"
         app:layout_constraintTop_toBottomOf="@id/password"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,5 +74,17 @@
         app:layout_constraintTop_toBottomOf="@id/loading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ImageView para mostrar el GIF (debajo de los botones) -->
+    <ImageView
+        android:id="@+id/backgroundGif"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:src="@drawable/pokedex"
+        app:layout_constraintTop_toBottomOf="@id/google_sign_in_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 package alcaide.bautista.pmdm03_mab_v03.ui.captured_pokemon;
 
 import android.os.Bundle;
-import android.util.Log;  // Añadir Log para depuración
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +24,10 @@ public class CapturedPokemonFragment extends Fragment {
 
     private CapturedPokemonViewModel viewModel;
     private CapturedPokemonAdapter adapter;
-    private static final String TAG = "CapturedPokemonFragment";  // Para los logs
+    private static final String TAG = "CapturedPokemonFragment";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflar el diseño del fragmento
         return inflater.inflate(R.layout.fragment_captured_pokemon, container, false);
     }
 
@@ -36,16 +35,10 @@ public class CapturedPokemonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Inicializar el ViewModel
         viewModel = new ViewModelProvider(requireActivity()).get(CapturedPokemonViewModel.class);
-
-        // Configurar RecyclerView
         setupRecyclerView(view);
-
-        // Observar los cambios en los datos
         observeViewModel();
 
-        // Cargar datos iniciales si es necesario
         if (isPokemonListEmpty()) {
             viewModel.fetchCapturedPokemon();
         }
@@ -54,7 +47,6 @@ public class CapturedPokemonFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        // Actualizar la lista al recuperar el fragmento
         viewModel.fetchCapturedPokemon();
     }
 
@@ -62,37 +54,49 @@ public class CapturedPokemonFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_captured_pokemon);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Inicializar el adaptador con una lista vacía
         adapter = new CapturedPokemonAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
-        // Configurar el listener para los clics en los elementos
         adapter.setOnItemClickListener(pokemon -> {
-            // Verificar que el Pokémon tiene un ID válido antes de pasar al siguiente fragmento
             if (pokemon.getId() > 0) {
-                Log.d(TAG, "ID del Pokémon capturado: " + pokemon.getId());  // Añadir log para depuración
+                Log.d(TAG, "ID del Pokémon capturado: " + pokemon.getId());
                 Bundle bundle = new Bundle();
-                bundle.putInt("pokemonId", pokemon.getId()); // Asegúrate de que Pokémon tiene un ID válido
+                bundle.putInt("pokemonId", pokemon.getId());
                 Navigation.findNavController(view).navigate(R.id.nav_detail, bundle);
             } else {
                 Log.e(TAG, "ID del Pokémon es inválido o nulo");
                 Toast.makeText(getContext(), "ID del Pokémon inválido", Toast.LENGTH_SHORT).show();
             }
         });
+
+        adapter.setOnDeleteClickListener(pokemon -> {
+            if (pokemon.getId() > 0) {
+                Log.d(TAG, "Eliminando Pokémon con ID: " + pokemon.getId());
+
+                // Llama al método deleteCapturedPokemon en el ViewModel
+                viewModel.deleteCapturedPokemon(pokemon.getId());
+
+                // Elimina el Pokémon de la lista actual en el RecyclerView
+                removePokemonFromList(pokemon);
+
+                // Notifica al usuario
+                Toast.makeText(getContext(), "Pokémon eliminado", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.e(TAG, "No se puede eliminar: ID del Pokémon inválido o nulo");
+                Toast.makeText(getContext(), "No se pudo eliminar el Pokémon", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void observeViewModel() {
-        // Observar cambios en la lista de Pokémon capturados
         viewModel.getCapturedPokemonList().observe(getViewLifecycleOwner(), this::updatePokemonList);
 
-        // Observar el estado de carga
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading) {
                 Toast.makeText(getContext(), R.string.loading_captured_pokemon, Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Observar mensajes de error
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
             if (errorMessage != null && !errorMessage.isEmpty()) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
@@ -107,5 +111,14 @@ public class CapturedPokemonFragment extends Fragment {
     private boolean isPokemonListEmpty() {
         List<Pokemon> currentList = viewModel.getCapturedPokemonList().getValue();
         return currentList == null || currentList.isEmpty();
+    }
+
+    private void removePokemonFromList(Pokemon pokemon) {
+        List<Pokemon> currentList = viewModel.getCapturedPokemonList().getValue();
+        if (currentList != null) {
+            currentList.remove(pokemon);
+            updatePokemonList(currentList);
+            viewModel.deleteCapturedPokemon(pokemon.getId());
+        }
     }
 }

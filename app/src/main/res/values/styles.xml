@@ -13,14 +13,44 @@
 
     </style>
 
-    <style name="description" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:fontFamily">@font/super_mario</item>
-        <item name="android:textSize">@dimen/text_description_size</item>
+    <style name="H2" parent="Theme.AppCompat.Light.DarkActionBar">
+        ...
+        <item name="android:fontFamily">@font/pocket_monk</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:padding">@dimen/text_padding</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">0</item>
-        <item name="android:shadowRadius">20</item>
-        <item name="android:shadowColor">#FFFFFF</item>
+        <item name="android:textColor">@color/pokemonYellow</item>
+        <item name="android:background">@color/pokemonBeigeO_50</item>
+        <item name="android:textSize">@dimen/text_name_detail</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowDx">20</item>
+        <item name="android:shadowDy">20</item>
+        <item name="android:shadowRadius">50</item>
+        <item name="android:shadowColor">@color/pokemonBlue</item>
+
+
+
+    </style>
+
+
+    <style name="H3sup" parent="Theme.AppCompat.Light.DarkActionBar">
+        ...
+        <item name="android:background">@color/pokemonBeigeO_50</item>
+
+    </style>
+
+    <style name="H3" parent="Theme.AppCompat.Light.DarkActionBar">
+    ...
+    <item name="android:fontFamily">@font/pocket_monk</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:padding">@dimen/text_padding_big</item>
+    <item name="android:textColor">@color/pokemonYellow</item>
+
+    <item name="android:textSize">@dimen/text_p_detail</item>
+    <item name="android:gravity">center</item>
+    <item name="android:shadowDx">5</item>
+    <item name="android:shadowDy">5</item>
+    <item name="android:shadowRadius">5</item>
+    <item name="android:shadowColor">@color/black</item>
     </style>
 
     <style name="skills" parent="Theme.AppCompat.Light.DarkActionBar">

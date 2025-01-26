@@ -9,6 +9,7 @@
     <color name="pokemonGray">#B0B0B0</color> <!-- Gris más oscuro -->
 
     <!-- Colores inspirados en Pokémon -->
+    <color name="pokemonYellowBack">#977900</color> <!-- Amarillo vibrante -->
     <color name="pokemonYellow">#FFCC00</color> <!-- Amarillo vibrante -->
     <color name="pokemonLightYellow">#FFF4C2</color> <!-- Amarillo claro -->
     <color name="pokemonBrown">#6E4705</color> <!-- Marrón para contrastar con amarillo -->
@@ -18,7 +19,7 @@
 
     <color name="pokemonBlue">#3B4CCA</color> <!-- Azul profundo -->
     <color name="pokemonLightBlue">#66B3FF</color> <!-- Azul claro -->
-    <color name="pokemonCardView">#9DCDFF</color> <!-- Fondo del CardView Azul claro claro -->
+    <color name="pokemonLightLightBlue">#9DCDFF</color> <!-- Fondo del CardView Azul claro claro -->
 
     <color name="pokemonGreen">#7AC142</color> <!-- Verde, como el de Bulbasaur -->
     <color name="pokemonLightGreen">#CFFFC1</color> <!-- Verde claro suave -->
@@ -35,6 +36,7 @@
 
     <!-- Colores neutrales -->
     <color name="pokemonBeige">#F5E6CC</color> <!-- Beige -->
+    <color name="pokemonBeigeO_50">#DCF5E6CC</color> <!-- Beige -->
 
     <color name="T_cc">#CC000000</color> <!-- Negro translúcido -->
     <color name="O_50">#50FFFFFF</color> <!-- Blanco translúcido -->

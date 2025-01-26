@@ -21,6 +21,7 @@ public class CapturedPokemonViewModel extends ViewModel {
     private final MutableLiveData<List<Pokemon>> capturedPokemonList = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>(null);
+    private final MutableLiveData<String> successMessage = new MutableLiveData<>(null);
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -47,6 +48,14 @@ public class CapturedPokemonViewModel extends ViewModel {
      */
     public LiveData<String> getErrorMessage() {
         return errorMessage;
+    }
+
+    /**
+     * Obtiene el mensaje de éxito, si existe.
+     * @return LiveData con el mensaje de éxito.
+     */
+    public LiveData<String> getSuccessMessage() {
+        return successMessage;
     }
 
     /**
@@ -112,5 +121,55 @@ public class CapturedPokemonViewModel extends ViewModel {
             Log.e("CapturedPokemonVM", "Error procesando el documento: " + document.getId(), e);
         }
         return null; // Retorna null si no se pudo procesar el documento.
+    }
+
+    /**
+     * Método para eliminar un Pokémon específico capturado por el usuario actual.
+     *
+     * @param pokemonId El ID único del Pokémon que se desea eliminar.
+     */
+    public void deleteCapturedPokemon(int pokemonId) {
+        FirebaseUser user = auth.getCurrentUser();
+
+        // Verifica si el usuario está autenticado.
+        if (user == null) {
+            errorMessage.setValue("Usuario no autenticado.");
+            return;
+        }
+
+        // Inicia el estado de carga.
+        isLoading.setValue(true);
+
+        // Busca el documento del Pokémon por el ID proporcionado y el usuario actual.
+        db.collection("pokemon_data")
+                .whereEqualTo("user_id", user.getUid()) // Filtra por el ID del usuario.
+                .whereEqualTo("pokemon_id", pokemonId) // Filtra por el ID del Pokémon.
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    // Verifica si se encontró el Pokémon.
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // Obtiene el primer documento (asumiendo que el ID es único).
+                        DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
+
+                        // Elimina el documento del Pokémon.
+                        document.getReference().delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    successMessage.setValue("Pokémon eliminado correctamente.");
+                                    isLoading.setValue(false);
+                                })
+                                .addOnFailureListener(e -> {
+                                    errorMessage.setValue("Error eliminando Pokémon: " + e.getMessage());
+                                    isLoading.setValue(false);
+                                });
+                    } else {
+                        errorMessage.setValue("Pokémon no encontrado.");
+                        isLoading.setValue(false);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Maneja el error si ocurre durante la obtención del documento.
+                    errorMessage.setValue("Error buscando el Pokémon: " + e.getMessage());
+                    isLoading.setValue(false);
+                });
     }
 }
