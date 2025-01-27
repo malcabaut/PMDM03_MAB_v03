@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.Random;
+
 import alcaide.bautista.pmdm03_mab_v03.data.PokemonApiService;
 import alcaide.bautista.pmdm03_mab_v03.data.RetrofitClient;
 import alcaide.bautista.pmdm03_mab_v03.data.PokemonResponse;
@@ -38,5 +40,14 @@ public class PokedexViewModel extends ViewModel {
                 // Manejo de errores
             }
         });
+
+    }
+
+    /**
+     * Método para generar un desplazamiento aleatorio y obtener la lista de Pokémon.
+     */
+    public void fetchPokemonWithRandomOffset() {
+        int randomOffset = new Random().nextInt(876); // Generar un número aleatorio entre 0 y 875
+        fetchPokemonList(randomOffset, randomOffset + 150); // Siempre sumar 150
     }
 }

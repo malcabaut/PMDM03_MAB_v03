@@ -1,12 +1,13 @@
 package alcaide.bautista.pmdm03_mab_v03.ui.detail_pokemon;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.squareup.picasso.Picasso;
@@ -15,167 +16,177 @@ import alcaide.bautista.pmdm03_mab_v03.R;
 import alcaide.bautista.pmdm03_mab_v03.data.Pokemon;
 import alcaide.bautista.pmdm03_mab_v03.data.PokemonApiService;
 import alcaide.bautista.pmdm03_mab_v03.data.RetrofitClient;
+import alcaide.bautista.pmdm03_mab_v03.databinding.FragmentDetailPokemonBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Fragmento que muestra los detalles de un Pokémon seleccionado.
+ * Se comunica con un servicio remoto para obtener los datos y los muestra
+ * en una interfaz de usuario vinculada mediante View Binding.
+ */
 public class DetailPokemonFragment extends Fragment {
 
+    private FragmentDetailPokemonBinding binding; // Variable para manejar View Binding
 
-    // Vistas necesarias para mostrar los detalles del Pokémon
-    private TextView pokedexIndex, pokemonName, type1, type2, weight, height;
-    private ImageView pokemonImage;
-    private LinearLayout typesContainer;
-
-    // Constructor sin cambios
+    /**
+     * Constructor del fragmento.
+     * Establece el layout asociado al fragmento.
+     */
     public DetailPokemonFragment() {
-        super(R.layout.fragment_detail_pokemon); // Asegúrate de que el nombre del XML es correcto
+        super(R.layout.fragment_detail_pokemon);
     }
 
+    /**
+     * Infla la vista del fragmento utilizando View Binding.
+     *
+     * @param inflater           Objeto LayoutInflater para inflar vistas.
+     * @param container          Contenedor padre donde se incluirá la vista.
+     * @param savedInstanceState Estado guardado previamente.
+     * @return La vista inflada del fragmento.
+     */
+    @Nullable
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentDetailPokemonBinding.inflate(inflater, container, false);
+        return binding.getRoot(); // Devuelve la raíz de la vista vinculada
+    }
+
+    /**
+     * Se llama después de que la vista ha sido creada.
+     * Aquí se configuran los elementos de la interfaz y se cargan los datos.
+     *
+     * @param view               La vista creada.
+     * @param savedInstanceState Estado guardado previamente.
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Ocultar el BottomNavigationView
-        View bottomNavigationView = requireActivity().findViewById(R.id.nav_view);
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setVisibility(View.GONE);
-        }
+        toggleBottomNavigationView(View.GONE);
 
-        // Vincular vistas con sus IDs desde el layout XML
-        pokedexIndex = view.findViewById(R.id.pokedex_index);
-        pokemonImage = view.findViewById(R.id.pokemon_image);
-        pokemonName = view.findViewById(R.id.pokemon_name);
-        type1 = view.findViewById(R.id.type_1);
-        type2 = view.findViewById(R.id.type_2);
-        weight = view.findViewById(R.id.weight);
-        height = view.findViewById(R.id.height);
-        typesContainer = view.findViewById(R.id.types_container);
-
-        // Obtener el Pokémon ID desde el Bundle
+        // Obtener el ID del Pokémon desde el Bundle de argumentos
         Bundle args = getArguments();
         if (args != null) {
-            int pokemonId = args.getInt("pokemonId", -1);  // Recuperar el ID, -1 es el valor por defecto
-
+            int pokemonId = args.getInt("pokemonId", -1); // Valor predeterminado: -1
             if (pokemonId != -1) {
-                Log.d("DetailPokemonFragment", "ID recibido: " + pokemonId);
-                fetchPokemonDetails(pokemonId);  // Llamar a la función para obtener los detalles
+                fetchPokemonDetails(pokemonId); // Llamar a la API para obtener detalles
             } else {
-                Log.e("DetailPokemonFragment", "No se recibió el ID del Pokémon");
-                pokemonName.setText(R.string.msg_error_generic);  // Mostrar mensaje de error si no se recibe el ID
+                showError(); // Mostrar error si no hay ID válido
             }
         }
     }
 
-    // Método para obtener los detalles del Pokémon usando Retrofit
+    /**
+     * Realiza una llamada a la API para obtener los detalles del Pokémon.
+     *
+     * @param pokemonId ID del Pokémon.
+     */
     private void fetchPokemonDetails(int pokemonId) {
-        // Log para verificar el ID recibido
-        Log.d("DetailPokemonFragment", "Iniciando fetch de detalles para el Pokémon con ID: " + pokemonId);
-
-        // Crear el servicio de Retrofit
         PokemonApiService service = RetrofitClient.getInstance().create(PokemonApiService.class);
-
-        // Llamar al endpoint para obtener los detalles del Pokémon
-        Call<Pokemon> call = service.getPokemonDetails(String.valueOf(pokemonId));  // Usar el ID del Pokémon
-        Log.d("DetailPokemonFragment", "Llamada a Retrofit creada con el endpoint getPokemonDetails.");
-
-        call.enqueue(new Callback<Pokemon>() {
+        service.getPokemonDetails(String.valueOf(pokemonId)).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
-                // Log para indicar que se recibió una respuesta
-                Log.d("DetailPokemonFragment", "Respuesta recibida de la API. Código HTTP: " + response.code());
-
+            public void onResponse(@NonNull Call<Pokemon> call, @NonNull Response<Pokemon> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Log para indicar que la respuesta es exitosa
-                    Log.d("DetailPokemonFragment", "Respuesta exitosa. Procesando datos del Pokémon.");
-
-                    // Si la respuesta es exitosa, extraemos el Pokémon y lo mostramos
                     Pokemon pokemon = response.body();
-
-                    // Log para verificar los detalles del Pokémon recibido
-                    Log.d("DetailPokemonFragment", "Detalles del Pokémon:");
-                    Log.d("DetailPokemonFragment", "ID: " + pokemon.getId());
-                    Log.d("DetailPokemonFragment", "Nombre: " + pokemon.getName());
-                    Log.d("DetailPokemonFragment", "URL de la imagen: " + pokemon.getImageUrl());
-                    Log.d("DetailPokemonFragment", "Tipo primario: " + pokemon.getTypes().get(0).getType().getName());
-                    if (pokemon.getTypes().size() > 1) {
-                        Log.d("DetailPokemonFragment", "Tipo secundario: " + pokemon.getTypes().get(1).getType().getName());
-                    } else {
-                        Log.d("DetailPokemonFragment", "No hay tipo secundario.");
-                    }
-                    Log.d("DetailPokemonFragment", "Peso: " + pokemon.getWeight());
-                    Log.d("DetailPokemonFragment", "Altura: " + pokemon.getHeight());
-
-                    // Cargar los detalles del Pokémon en las vistas
+                    // Cargar detalles del Pokémon en la interfaz
                     loadPokemonDetails(
                             pokemon.getId(),
                             pokemon.getName(),
-                            pokemon.getImageUrl(),  // Usar el método getImageUrl() para obtener la URL de la imagen
+                            pokemon.getImageUrl(),
                             pokemon.getTypes().get(0).getType().getName(),
                             pokemon.getTypes().size() > 1 ? pokemon.getTypes().get(1).getType().getName() : null,
-                            pokemon.getWeight() / 10.0,  // Peso en kg (API retorna en hectogramos)
-                            pokemon.getHeight() / 10.0  // Altura en metros (API retorna en decímetros)
+                            pokemon.getWeight() / 10.0,
+                            pokemon.getHeight() / 10.0
                     );
                 } else {
-                    // Log para indicar que la respuesta no es exitosa
-                    Log.e("DetailPokemonFragment", "Error en la respuesta de la API. Código HTTP: " + response.code());
-                    pokemonName.setText(R.string.msg_error_generic);
+                    showError(); // Mostrar error si no hay respuesta válida
                 }
             }
 
             @Override
-            public void onFailure(Call<Pokemon> call, Throwable t) {
-                // Log para indicar que hubo un error en la conexión
-                Log.e("DetailPokemonFragment", "Fallo al conectar con la API. Verifica la conexión a internet.", t);
-                pokemonName.setText(R.string.msg_error_generic);
+            public void onFailure(@NonNull Call<Pokemon> call, @NonNull Throwable t) {
+                showError(); // Mostrar error en caso de fallo
             }
         });
     }
 
-    // Método para cargar los detalles del Pokémon en las vistas
+    /**
+     * Carga los detalles del Pokémon en la interfaz de usuario.
+     *
+     * @param index         Índice del Pokémon en la Pokédex.
+     * @param name          Nombre del Pokémon.
+     * @param imageUrl      URL de la imagen del Pokémon.
+     * @param primaryType   Tipo principal del Pokémon.
+     * @param secondaryType Tipo secundario (si existe).
+     * @param pokemonWeight Peso del Pokémon en kilogramos.
+     * @param pokemonHeight Altura del Pokémon en metros.
+     */
     private void loadPokemonDetails(int index, String name, String imageUrl, String primaryType, String secondaryType, double pokemonWeight, double pokemonHeight) {
+        binding.pokedexIndex.setText(getString(R.string.pokedex_index_format, index)); // Mostrar el índice con formato
+        binding.pokemonName.setText(name); // Mostrar el nombre del Pokémon
 
-        // Establecer detalles básicos del Pokémon
-        pokedexIndex.setText(String.format("#%03d", index));  // Formatear el índice de la Pokédex
-        pokemonName.setText(name);
-
-        // Log para verificar la URL de la imagen
-        Log.d("DetailPokemonFragment", "URL de la imagen: " + imageUrl);
-
-        // Cargar imagen del Pokémon usando Picasso
+        // Cargar la imagen del Pokémon utilizando Picasso
         Picasso.get()
-                .load(imageUrl)  // Usar la URL proporcionada por getImageUrl()
-                .placeholder(R.drawable.placeholder_image)  // Imagen de placeholder mientras carga
-                .error(R.drawable.ic_error_drawable)  // Imagen que se muestra en caso de error
-                .into(pokemonImage);
+                .load(imageUrl)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.ic_error_drawable)
+                .into(binding.pokemonImage);
 
-        // Mostrar el tipo primario y secundario (si existe)
-        setType(type1, primaryType);
-        setType(type2, secondaryType);
+        // Configurar los tipos
+        setType(binding.type1, primaryType);
+        setType(binding.type2, secondaryType);
 
-        // Mostrar peso y altura
-        weight.setText(String.format("Peso: %.1f kg", pokemonWeight));
-        height.setText(String.format("Altura: %.1f m", pokemonHeight));
+        // Mostrar peso y altura con el formato adecuado
+        binding.weight.setText(getString(R.string.weight_label, pokemonWeight));
+        binding.height.setText(getString(R.string.height_label, pokemonHeight));
     }
 
-    // Método auxiliar para configurar y mostrar los tipos de Pokémon
+    /**
+     * Establece el tipo de Pokémon en un TextView.
+     * Si el tipo es nulo, oculta el TextView.
+     *
+     * @param typeTextView TextView donde se mostrará el tipo.
+     * @param type         Tipo de Pokémon (puede ser nulo).
+     */
     private void setType(TextView typeTextView, String type) {
-        if (type != null && !type.isEmpty()) {
-            typeTextView.setText(type);
-            typeTextView.setVisibility(View.VISIBLE);  // Hacer visible
+        if (type != null) {
+            typeTextView.setText(type); // Mostrar el tipo
+            typeTextView.setVisibility(View.VISIBLE); // Hacer visible el TextView
         } else {
-            typeTextView.setVisibility(View.GONE);  // Ocultar si no hay tipo
+            typeTextView.setVisibility(View.GONE); // Ocultar el TextView si no hay tipo
         }
     }
 
+    /**
+     * Muestra un mensaje de error genérico en la interfaz.
+     */
+    private void showError() {
+        binding.pokemonName.setText(R.string.msg_error_generic); // Mensaje de error en el TextView del nombre
+    }
+
+    /**
+     * Cambia la visibilidad del BottomNavigationView.
+     *
+     * @param visibility Visibilidad deseada (View.VISIBLE, View.GONE, etc.).
+     */
+    private void toggleBottomNavigationView(int visibility) {
+        View bottomNavigationView = requireActivity().findViewById(R.id.nav_view);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setVisibility(visibility); // Cambiar visibilidad
+        }
+    }
+
+    /**
+     * Se llama al destruir la vista.
+     * Limpia la referencia de binding para evitar fugas de memoria.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        // Mostrar el BottomNavigationView
-        View bottomNavigationView = requireActivity().findViewById(R.id.nav_view);
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-        }
+        binding = null; // Liberar referencia
+        toggleBottomNavigationView(View.VISIBLE); // Restaurar la visibilidad del BottomNavigationView
     }
 }

@@ -1,0 +1,79 @@
+<resources>
+    <!-- Application Name -->
+    <string name="app_name">PMDM03_MAB_v03</string>
+
+    <!-- Strings for Sign-In -->
+    <string name="prompt_email">Email</string> <!-- Field to enter the email -->
+    <string name="prompt_password">Password</string> <!-- Field to enter the password -->
+    <string name="action_sign_in">Sign in or create account</string> <!-- Action to sign in or create an account -->
+    <string name="google_sign_in">Google Sign-In Button</string> <!-- Text for the button to sign in with Google -->
+
+    <!-- Strings for Navigation Menu -->
+    <string name="nav_captured_pokemon">Captured Pokémon</string> <!-- Text for the captured Pokémon option in the menu -->
+    <string name="nav_pokedex">Pokédex</string> <!-- Text for the Pokédex option in the menu -->
+    <string name="nav_settings">Settings</string> <!-- Text for the Settings option in the menu -->
+
+    <!-- Strings for Fragments -->
+    <string name="fragment_captured_pokemon_title">Captured Pokémon</string> <!-- Title for the Captured Pokémon fragment -->
+    <string name="fragment_pokedex_title">Pokédex</string> <!-- Title for the Pokédex fragment -->
+    <string name="fragment_settings_title">Settings</string> <!-- Title for the Settings fragment -->
+
+    <!-- Messages and Notifications -->
+    <string name="msg_loading">Loading…</string> <!-- Message shown while loading -->
+    <string name="msg_error_generic">An error occurred. Please try again.</string> <!-- Generic error message -->
+    <string name="msg_no_data">No data available at the moment.</string> <!-- Message when no data is available -->
+
+    <!-- Actions -->
+    <string name="action_retry">Retry</string> <!-- Action to retry -->
+    <string name="action_close">Close</string> <!-- Action to close -->
+    <string name="action_save">Save</string> <!-- Action to save -->
+
+    <!-- Main Sections -->
+    <string name="pok_mon_capturados">Captured Pokémon</string> <!-- Text for the Captured Pokémon section -->
+    <string name="pok_dex">Pokédex</string> <!-- Text for the Pokédex section -->
+    <string name="setting">Settings</string> <!-- Text for the Settings section -->
+
+    <!-- Strings Related to Pokémon Image -->
+    <string name="pokemon_image_desc">Pokémon image</string> <!-- Description of a Pokémon image -->
+
+    <!-- Messages When No Pokémon Captured -->
+    <string name="no_captured_pokemon">You haven’t captured any Pokémon</string> <!-- Message when no Pokémon have been captured -->
+    <string name="loading_captured_pokemon">Loading…</string> <!-- Message when loading captured Pokémon -->
+
+    <!-- Change Language -->
+    <string name="app_change_language">Change language to English</string> <!-- Text to change the language to English -->
+    <string name="app_change_language_Toast">Language saved</string> <!-- Text to notify the language change to English -->
+
+    <!-- Pokémon Deletion -->
+    <string name="delete_pokemon_option">Release all captured Pokémon</string> <!-- Text to delete all captured Pokémon -->
+    <string name="allow_deletion">Allow deletion</string> <!-- Text to allow deletion of a Pokémon -->
+
+    <!-- About Information -->
+    <string name="about">About</string> <!-- Text for the About section -->
+    <string name="about_dialog_title">About the App</string> <!-- Title for the About dialog -->
+    <string name="about_dialog_message">Developer: Your Name\nVersion: 1.0.0</string> <!-- Message for the About dialog -->
+
+    <!-- Logout -->
+    <string name="logout">Log out</string> <!-- Text to log out -->
+    <string name="logout_confirmation">Are you sure you want to log out?</string> <!-- Confirmation to log out -->
+
+    <!-- Pokédex Index -->
+    <string name="pokedex_index_placeholder">Pokédex #%1$d</string> <!-- Placeholder for the index of a Pokémon in the Pokédex -->
+
+    <!-- Pokémon Information -->
+    <string name="pokedex_index_format">#%03d</string> <!-- Format for the Pokédex index (with leading zeros) -->
+    <string name="pokemon_name_placeholder">Bulbasaur</string> <!-- Placeholder Pokémon name -->
+    <string name="pokemon_type_1">Grass</string> <!-- Pokémon Type 1 (e.g., Grass) -->
+    <string name="pokemon_type_2">Poison</string> <!-- Pokémon Type 2 (e.g., Poison) -->
+    <string name="weight_label">Weight: %.1f kg</string> <!-- Label for Pokémon weight -->
+    <string name="height_label">Height: %.1f m</string> <!-- Label for Pokémon height -->
+
+    <!-- Others -->
+    <string name="pokemon_id_placeholder">0</string> <!-- Placeholder for Pokémon ID -->
+    <string name="pokemon_deleted">Pokémon %1$s deleted</string> <!-- Message when a Pokémon is deleted -->
+    <string name="app_character_name">name</string> <!-- Name of an app character -->
+    <string name="app_about">About …</string> <!-- Text for the About section -->
+    <string name="app_about_info"><![CDATA[App developed by <b>Miguel Alcaide Bautista</b>.<br>Version 1]]></string> <!-- App information (developer and version) -->
+    <string name="settings_title">helloworld\n</string> <!-- Title for the settings section (temporary) -->
+    <string name="delete_item_desc">Icon to delete the item</string> <!-- Description for the icon to delete an item -->
+</resources>

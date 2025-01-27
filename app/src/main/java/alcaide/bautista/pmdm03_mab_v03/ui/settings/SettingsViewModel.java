@@ -54,6 +54,7 @@ public class SettingsViewModel extends ViewModel {
 
     public void logoutFromFirebase() {
         auth.signOut();
+
     }
 
     public LiveData<Boolean> getLanguageChanged() {

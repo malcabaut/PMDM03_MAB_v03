@@ -8,6 +8,7 @@
     android:background="@drawable/image_background"
     android:padding="16dp">
 
+
     <!-- Imagen del Pokémon que ocupa toda la pantalla -->
     <ImageView
         android:id="@+id/pokemon_image"

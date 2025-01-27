@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import alcaide.bautista.pmdm03_mab_v03.LoginActivity;
+import alcaide.bautista.pmdm03_mab_v03.PreferencesHelper;
 import alcaide.bautista.pmdm03_mab_v03.databinding.FragmentSettingsBinding;
 
 /**
@@ -64,11 +65,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        // Vincula el botón de cambiar idioma
+    // Vincula el botón de cambiar idioma
         binding.buttonChangeLanguage.setOnClickListener(v -> {
-            settingsViewModel.setLanguageChanged(true);
-            // Aquí puedes implementar la lógica para cambiar el idioma de la aplicación.
-            // Por ejemplo, cambiar el idioma cuando se presiona el botón.
+            // Alterna el idioma actual
+            boolean isEnglish = PreferencesHelper.getLanguage(requireContext()).equals("en");
+            PreferencesHelper.setLanguage(requireContext(), !isEnglish);
+
+            // Reinicia la actividad para aplicar el cambio de idioma
+            requireActivity().recreate();
         });
 
         // Configura los botones

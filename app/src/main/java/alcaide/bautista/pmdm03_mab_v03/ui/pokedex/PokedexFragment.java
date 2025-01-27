@@ -48,6 +48,9 @@ public class PokedexFragment extends Fragment {
             }
         });
 
-        pokedexViewModel.fetchPokemonList(0, 150);
+        //pokedexViewModel.fetchPokemonList(0, 150);
+
+        // Llamar al método para obtener la lista de Pokémon con un desplazamiento aleatorio 0 a 875
+        pokedexViewModel.fetchPokemonWithRandomOffset();
     }
 }
