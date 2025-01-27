@@ -27,6 +27,9 @@ public class PokedexViewModel extends ViewModel {
     }
 
     public void fetchPokemonList(int offset, int limit) {
+        // Limpiar la lista antes de obtener nuevos datos
+        pokemonList.postValue(null);
+
         apiService.getPokemonList(offset, limit).enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
@@ -34,20 +37,11 @@ public class PokedexViewModel extends ViewModel {
                     pokemonList.postValue(response.body());
                 }
             }
-
             @Override
             public void onFailure(Call<PokemonResponse> call, Throwable t) {
                 // Manejo de errores
             }
         });
-
     }
 
-    /**
-     * Método para generar un desplazamiento aleatorio y obtener la lista de Pokémon.
-     */
-    public void fetchPokemonWithRandomOffset() {
-        int randomOffset = new Random().nextInt(876); // Generar un número aleatorio entre 0 y 875
-        fetchPokemonList(randomOffset, randomOffset + 150); // Siempre sumar 150
-    }
 }

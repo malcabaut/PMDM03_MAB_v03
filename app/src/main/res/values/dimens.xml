@@ -2,7 +2,7 @@
 <resources>
     <dimen name="text_name_detail">70sp</dimen>
     <dimen name="text_name_size">40sp</dimen>
-    <dimen name="text_p_detail">30sp</dimen>
+    <dimen name="text_p_detail">27sp</dimen>
     <dimen name="text_p_size">25dp</dimen>
     <dimen name="text_tool_bar">45dp</dimen>
     <dimen name="text_skills_size">20dp</dimen>

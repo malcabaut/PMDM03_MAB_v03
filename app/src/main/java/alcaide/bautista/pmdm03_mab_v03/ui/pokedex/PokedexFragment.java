@@ -1,5 +1,7 @@
 package alcaide.bautista.pmdm03_mab_v03.ui.pokedex;
 
+import static kotlin.random.RandomKt.Random;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Random;
 
 import alcaide.bautista.pmdm03_mab_v03.R;
 
@@ -47,10 +51,8 @@ public class PokedexFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         });
+        int randomOffset = new Random().nextInt(876); // Generar un número aleatorio entre 0 y 875
+        pokedexViewModel.fetchPokemonList(randomOffset, 150);
 
-        //pokedexViewModel.fetchPokemonList(0, 150);
-
-        // Llamar al método para obtener la lista de Pokémon con un desplazamiento aleatorio 0 a 875
-        pokedexViewModel.fetchPokemonWithRandomOffset();
     }
 }

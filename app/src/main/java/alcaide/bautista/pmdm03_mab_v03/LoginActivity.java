@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
 
     // Lista de proveedores de inicio de sesión (Email y Google)
     private final List<AuthUI.IdpConfig> providers = Arrays.asList(
-            new AuthUI.IdpConfig.EmailBuilder().build(),
             new AuthUI.IdpConfig.GoogleBuilder().build()
     );
 
