@@ -14,13 +14,13 @@ public class PreferencesHelper {
      * Guarda el idioma seleccionado en las preferencias.
      *
      * @param context   Contexto para acceder a SharedPreferences.
-     * @param isEnglish True si el idioma es inglés, false si es español.
+     * @param language  Código del idioma ("en" o "es").
      */
-    public static void setLanguage(Context context, boolean isEnglish) {
+    public static void setLanguage(Context context, String language) {
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
                 .edit()
-                .putString(KEY_LANGUAGE, isEnglish ? "en" : "es")
-                .apply();
+                .putString(KEY_LANGUAGE, language)
+                .commit(); // Asegura que los cambios se escriban inmediatamente
     }
 
     /**

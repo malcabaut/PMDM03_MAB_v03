@@ -23,14 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-// Comprobar el idioma guardado
-        String savedLanguage = PreferencesHelper.getLanguage(this);
-        String message = getString(R.string.app_change_language_Toast) + ": " + savedLanguage;
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
-// Cambiar el idioma de la aplicación basado en el idioma guardado
-        LocaleListCompat appLocales = LocaleListCompat.forLanguageTags(savedLanguage);
-        AppCompatDelegate.setApplicationLocales(appLocales);
+        // Configurar el idioma de la aplicación basado en el idioma guardado
+        applySavedLanguage();
 
         // Configuración de ViewBinding para acceder a las vistas de la actividad
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -46,4 +40,17 @@ public class MainActivity extends AppCompatActivity {
         // Vincular el BottomNavigationView con el NavController para manejar la navegación
         NavigationUI.setupWithNavController(navView, navController);
     }
+
+    /**
+     * Aplica el idioma guardado en las preferencias de la aplicación.
+     */
+    private void applySavedLanguage() {
+        // Obtener el idioma guardado de SharedPreferences
+        String savedLanguage = PreferencesHelper.getLanguage(this);
+
+        // Aplicar el idioma utilizando AppCompatDelegate y LocaleListCompat
+        LocaleListCompat appLocales = LocaleListCompat.forLanguageTags(savedLanguage);
+        AppCompatDelegate.setApplicationLocales(appLocales);
+    }
+
 }

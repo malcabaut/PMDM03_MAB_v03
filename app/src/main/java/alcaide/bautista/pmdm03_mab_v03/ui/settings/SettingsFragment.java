@@ -65,12 +65,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-    // Vincula el botón de cambiar idioma
+// Vincula el botón de cambiar idioma
         binding.buttonChangeLanguage.setOnClickListener(v -> {
-            // Alterna el idioma actual
-            boolean isEnglish = PreferencesHelper.getLanguage(requireContext()).equals("en");
-            PreferencesHelper.setLanguage(requireContext(), !isEnglish);
-
+            // Obtén el idioma actual
+            String currentLanguage = PreferencesHelper.getLanguage(requireContext());
+            // Alterna entre "en" y "es"
+            String newLanguage = currentLanguage.equals("en") ? "es" : "en";
+            // Guarda el nuevo idioma
+            PreferencesHelper.setLanguage(requireContext(), newLanguage);
             // Reinicia la actividad para aplicar el cambio de idioma
             requireActivity().recreate();
         });
