@@ -23,11 +23,7 @@
         android:id="@+id/nav_settings"
         android:name="alcaide.bautista.pmdm03_mab_v03.ui.settings.SettingsFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_settings">
-        <action
-            android:id="@+id/action_nav_settings_to_nav_detail"
-            app:destination="@id/nav_detail" />
-    </fragment>
+        tools:layout="@layout/fragment_settings"/>
 
     <!-- Añadir el argumento pokemonId para que se pase al DetailPokemonFragment -->
     <fragment

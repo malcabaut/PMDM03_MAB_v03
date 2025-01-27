@@ -37,7 +37,7 @@
     <string name="pokemon_image_desc">imagen del pokemon</string> <!-- Descripción de la imagen de un Pokémon -->
 
     <!-- Mensajes cuando no hay Pokémon capturados -->
-    <string name="no_captured_pokemon">No has capturado ningún Pokémon</string> <!-- Mensaje cuando no se han capturado Pokémon -->
+    <string name="no_captured_pokemon">No has capturado ningún Pokémon, error en Firestore</string> <!-- Mensaje cuando no se han capturado Pokémon -->
     <string name="loading_captured_pokemon">Cargando…</string> <!-- Mensaje de carga de Pokémon capturados -->
 
     <!-- Cambiar idioma -->

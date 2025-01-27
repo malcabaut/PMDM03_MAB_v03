@@ -80,12 +80,13 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexHolder> {
                 .addOnSuccessListener(documentReference -> {
                     Log.d("PokedexAdapter", "Documento añadido con ID: " + documentReference.getId());
                     // Muestra un Toast notificando que el Pokémon ha sido capturado.
-                    Toast.makeText(context, "¡Pokémon capturado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.pok_mon_capturados), Toast.LENGTH_SHORT).show();
+
                 })
                 .addOnFailureListener(e -> {
                     Log.e("PokedexAdapter", "Error al añadir el documento", e);
                     // Muestra un Toast notificando que hubo un error.
-                    Toast.makeText(context, "Error al capturar el Pokémon", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.no_captured_pokemon), Toast.LENGTH_SHORT).show();
                 });
     }
 
