@@ -20,7 +20,7 @@ Esta aplicación permite a los usuarios capturar y gestionar Pokémon favoritos 
 - **Lenguaje:** Java
 - **Servicios en la nube:** Firebase Authentication y Firestore
 - **Consumo de API:** Retrofit
-- **Interfaz de usuario:** RecyclerView, CardView, NavController, DrawerLayout, Utiliza un ViewModel para manejar la lógica de datos y las actualizaciones del UI. [Coil es una librería moderna](https://github.com/coil-kt/coil)
+- **Interfaz de usuario:** RecyclerView, CardView, NavController, DrawerLayout, Utiliza un ViewModel para manejar la lógica de datos y las actualizaciones del UI. 
 - **Gestión de estados:** SharedPreferences
 
 ## Instrucciones de uso
